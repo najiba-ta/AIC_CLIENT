@@ -306,6 +306,14 @@ export default function AdminTeacherApplicationsPage() {
               </span>
             )}
           </Link>
+
+          <Link
+            href="/admin/team"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold text-[#595959] hover:text-[#252525] hover:bg-white border border-transparent transition-all"
+          >
+            <Briefcase className="w-4 h-4 text-[#8C827A]" />
+            <span>Leadership & Team</span>
+          </Link>
         </div>
 
         {/* Metric Cards */}

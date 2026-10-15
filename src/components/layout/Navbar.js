@@ -15,6 +15,7 @@ export default function Navbar() {
 
   const navLinks = [
     { name: isBn ? "পরিচিতি" : "About", href: "/about" },
+    { name: isBn ? "নেতৃত্ব ও টিম" : "Our Team", href: "/our-team" },
     { name: isBn ? "শিক্ষা কার্যক্রম" : "Courses", href: "/courses" },
     { name: isBn ? "প্রোগ্রামসমূহ" : "Programs", href: "/programs" },
     { name: isBn ? "নামাজের সময়সূচি" : "Prayer Times", href: "/prayer-times" },
