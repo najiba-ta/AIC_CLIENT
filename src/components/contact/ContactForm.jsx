@@ -17,58 +17,47 @@ import {
 } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 
-const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
 export default function ContactForm() {
   const { isBn } = useLanguage();
   const [formData, setFormData] = useState({
     name: "",
-    email: "",
-    phone: "",
-    subject: "",
-    category: "General Inquiry",
     message: "",
   });
+  const [honeypot, setHoneypot] = useState("");
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const [successMessage, setSuccessMessage] = useState("");
-  const [error, setError] = useState("");
+  const [successInfo, setSuccessInfo] = useState(null);
+  const [errorInfo, setErrorInfo] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-    if (error) setError("");
+    if (errorInfo) setErrorInfo(null);
   };
 
   const validate = () => {
     const trimmedName = formData.name.trim();
     if (!trimmedName || trimmedName.length < 2) {
-      setError(
-        isBn
-          ? "অনুগ্রহ করে আপনার নাম লিখুন (কমপক্ষে ২ অক্ষর)।"
-          : "Please enter your name (at least 2 characters)."
-      );
-      return false;
-    }
-
-    const trimmedEmail = formData.email.trim();
-    if (!trimmedEmail || !EMAIL_REGEX.test(trimmedEmail)) {
-      setError(
-        isBn
-          ? "অনুগ্রহ করে একটি সঠিক ইমেইল ঠিকানা প্রদান করুন।"
-          : "Please provide a valid email address."
-      );
+      setErrorInfo({
+        status: null,
+        titleEn: "Name is required",
+        titleBn: "নাম পূরণ করা আবশ্যক",
+        en: "Please enter your name (at least 2 characters).",
+        bn: "অনুগ্রহ করে আপনার নাম লিখুন (কমপক্ষে ২ অক্ষর)।",
+      });
       return false;
     }
 
     const trimmedMessage = formData.message.trim();
     if (!trimmedMessage || trimmedMessage.length < 5) {
-      setError(
-        isBn
-          ? "অনুগ্রহ করে আপনার বার্তার বিস্তারিত লিখুন (কমপক্ষে ৫ অক্ষর)।"
-          : "Please enter your message details (at least 5 characters)."
-      );
+      setErrorInfo({
+        status: null,
+        titleEn: "Message is required",
+        titleBn: "বার্তার বিবরণ প্রয়োজন",
+        en: "Please enter your message details (at least 5 characters).",
+        bn: "অনুগ্রহ করে আপনার বার্তার বিস্তারিত লিখুন (কমপক্ষে ৫ অক্ষর)।",
+      });
       return false;
     }
 
@@ -81,18 +70,20 @@ export default function ContactForm() {
     // Prevent duplicate submissions
     if (isSubmitting) return;
 
+    // Spam protection: check honeypot
+    if (honeypot) {
+      console.warn("[ContactForm] Honeypot triggered. Aborting submission.");
+      return;
+    }
+
     if (!validate()) return;
 
     setIsSubmitting(true);
-    setError("");
+    setErrorInfo(null);
 
     try {
       const payload = {
         name: formData.name.trim(),
-        email: formData.email.trim().toLowerCase(),
-        phone: formData.phone.trim(),
-        subject: formData.subject.trim() || formData.category,
-        category: formData.category,
         message: formData.message.trim(),
       };
 
@@ -111,43 +102,73 @@ export default function ContactForm() {
         data = null;
       }
 
+      // Check if delivery was not confirmed
       if (!res.ok || !data?.success) {
-        throw new Error(
-          data?.error ||
-            data?.message ||
-            (isBn
-              ? "বার্তা পাঠানো সম্ভব হয়নি। অনুগ্রহ করে কিছুক্ষণ পর আবার চেষ্টা করুন।"
-              : "Failed to send your message. Please try again shortly.")
-        );
+        const status = res.status;
+        const serverMsg = data?.message || data?.error || "";
+
+        if (
+          status === 503 ||
+          serverMsg.toLowerCase().includes("configured") ||
+          serverMsg.toLowerCase().includes("smtp") ||
+          serverMsg.toLowerCase().includes("delivery service")
+        ) {
+          setErrorInfo({
+            status: 503,
+            titleEn: "Email Delivery Notice",
+            titleBn: "ইমেইল ডেলিভারি সংক্রান্ত বিজ্ঞপ্তি",
+            en:
+              serverMsg ||
+              "Email delivery service is currently being configured on the server. Your message was saved. You may also contact us directly at alhidayahislamiccenter26@gmail.com.",
+            bn:
+              "সার্ভারে ইমেইল ডেলিভারি সেবা বর্তমানে কনফিগার করা হচ্ছে। আপনার বার্তাটি সিস্টেমে সংরক্ষিত হয়েছে। আপনি সরাসরি alhidayahislamiccenter26@gmail.com ঠিকানায়ও যোগাযোগ করতে পারেন।",
+          });
+        } else {
+          setErrorInfo({
+            status: status || 500,
+            titleEn: "Unable to Send Message",
+            titleBn: "বার্তা পাঠানো সম্ভব হয়নি",
+            en:
+              serverMsg ||
+              "Failed to deliver your message. Please try again shortly or contact us directly at alhidayahislamiccenter26@gmail.com.",
+            bn:
+              "আপনার বার্তাটি এই মুহূর্তে পাঠানো সম্ভব হয়নি। অনুগ্রহ করে কিছুক্ষণ পর আবার চেষ্টা করুন অথবা সরাসরি alhidayahislamiccenter26@gmail.com ঠিকানায় যোগাযোগ করুন।",
+          });
+        }
+
+        // NOTE: We do NOT clear formData here, preserving the visitor's entered message!
+        return;
       }
 
-      // Only show success if the server confirmed operation succeeded
+      // ONLY show success when the API confirms successful email delivery
       setSubmitted(true);
-      setSuccessMessage(
-        data?.message ||
-          (isBn
-            ? "আল হিদায়াহ ইসলামিক সেন্টারে যোগাযোগ করার জন্য ধন্যবাদ। আমরা আপনার বার্তা পেয়েছি এবং শীঘ্রই উত্তর দেব।"
-            : "Thank you for contacting Al Hidayah Islamic Center. We have received your message and will respond shortly.")
-      );
+      setSuccessInfo({
+        titleEn: "Message Delivered Successfully",
+        titleBn: "বার্তা সফলভাবে পাঠানো হয়েছে",
+        en:
+          data?.message ||
+          "Thank you for contacting Al Hidayah Islamic Center. We have received your message and will respond shortly.",
+        bn:
+          "আল হিদায়াহ ইসলামিক সেন্টারে যোগাযোগ করার জন্য ধন্যবাদ। আমরা আপনার বার্তা পেয়েছি এবং শীঘ্রই উত্তর দেব।",
+      });
 
       // Reset form fields upon confirmed success
       setFormData({
         name: "",
-        email: "",
-        phone: "",
-        subject: "",
-        category: "General Inquiry",
         message: "",
       });
     } catch (err) {
       console.error("[Contact Form Submit Error]", err);
-      // Preserve visitor's entered message so they can retry without losing their text
-      setError(
-        err?.message ||
-          (isBn
-            ? "বার্তা পাঠানো সম্ভব হয়নি। অনুগ্রহ করে কিছুক্ষণ পর আবার চেষ্টা করুন।"
-            : "Failed to send message. Please check your connection and retry.")
-      );
+      // Network or client exception: preserve visitor's entered message
+      setErrorInfo({
+        status: null,
+        titleEn: "Connection Error",
+        titleBn: "সংযোগ ত্রুটি",
+        en:
+          "Network error connecting to the center server. Please check your connection and try again, or write directly to alhidayahislamiccenter26@gmail.com.",
+        bn:
+          "সার্ভারের সাথে সংযোগ স্থাপন করা যায়নি। অনুগ্রহ করে আপনার ইন্টারনেট সংযোগ পরীক্ষা করে পুনরায় চেষ্টা করুন, অথবা সরাসরি alhidayahislamiccenter26@gmail.com ঠিকানায় যোগাযোগ করুন।",
+      });
     } finally {
       setIsSubmitting(false);
     }
@@ -165,143 +186,133 @@ export default function ContactForm() {
           </h2>
           <p className="text-xs sm:text-sm text-[#595959] mb-6">
             {isBn
-              ? "নিচের ফরমটি পূরণ করুন, আমাদের প্রশাসনিক প্রতিনিধি দ্রুত আপনার সাথে যোগাযোগ করবেন।"
-              : "Fill out the form below and our administration will respond to your inquiry promptly."}
+              ? "নিচের ফরমটিতে আপনার নাম ও বার্তা লিখে জমা দিন। আমাদের প্রশাসনিক দল দ্রুত আপনার সাথে যোগাযোগ করবে।"
+              : "Fill out your name and message below. Our administrative team will review your inquiry promptly."}
           </p>
 
-          {submitted ? (
+          {submitted && successInfo ? (
             <div className="p-6 sm:p-8 rounded-2xl bg-white/95 backdrop-blur-md border border-[#B89550]/40 text-center space-y-4 shadow-sm animate-in fade-in zoom-in-95 duration-200">
               <div className="w-14 h-14 rounded-full bg-[#FAF8F2] border-2 border-[#B89550]/50 text-[#B89550] flex items-center justify-center mx-auto shadow-xs">
                 <CheckCircle2 className="w-7 h-7" />
               </div>
-              <h3 className="text-xl font-bold text-[#252525]">
-                {isBn ? "বার্তা সফলভাবে পাঠানো হয়েছে" : "Message Submitted Successfully"}
-              </h3>
-              <p className="text-xs sm:text-sm text-[#595959] leading-relaxed max-w-md mx-auto">
-                {successMessage}
-              </p>
+
+              <div className="space-y-1">
+                <h3 className="text-xl font-bold text-[#252525]">
+                  {successInfo.titleEn}
+                </h3>
+                <p className="text-sm font-semibold text-[#B89550]">
+                  {successInfo.titleBn}
+                </p>
+              </div>
+
+              <div className="text-xs sm:text-sm text-[#595959] leading-relaxed max-w-md mx-auto space-y-2.5 pt-1">
+                <p>{successInfo.en}</p>
+                <div className="pt-2 border-t border-stone-200/70 text-[#3A3A3A] font-medium">
+                  {successInfo.bn}
+                </div>
+              </div>
+
               <button
                 type="button"
                 onClick={() => {
                   setSubmitted(false);
-                  setSuccessMessage("");
+                  setSuccessInfo(null);
                 }}
-                className="mt-2 inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-[#B89550] hover:bg-[#A58342] text-white text-xs sm:text-sm font-bold cursor-pointer shadow-sm transition-all"
+                className="mt-3 inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-[#B89550] hover:bg-[#A58342] text-white text-xs sm:text-sm font-bold cursor-pointer shadow-sm transition-all"
               >
                 <span>{isBn ? "আরেকটি বার্তা পাঠান" : "Send Another Message"}</span>
               </button>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5" noValidate>
-              {error && (
-                <div className="p-4 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs sm:text-sm flex items-start gap-2.5 shadow-2xs">
-                  <AlertCircle className="w-4 h-4 text-red-600 shrink-0 mt-0.5" />
-                  <div className="flex-1">
-                    <strong className="block font-semibold">
-                      {isBn ? "ত্রুটি:" : "Error:"}
-                    </strong>
-                    <span>{error}</span>
+              {/* Spam protection: hidden honeypot field */}
+              <div className="hidden" aria-hidden="true">
+                <label htmlFor="_hp_contact">Leave this blank</label>
+                <input
+                  id="_hp_contact"
+                  name="_hp_contact"
+                  type="text"
+                  value={honeypot}
+                  onChange={(e) => setHoneypot(e.target.value)}
+                  tabIndex={-1}
+                  autoComplete="off"
+                />
+              </div>
+
+              {/* Bilingual Error Alert */}
+              {errorInfo && (
+                <div
+                  role="alert"
+                  aria-live="assertive"
+                  className={`p-4 rounded-xl border text-xs sm:text-sm flex items-start gap-3 shadow-2xs ${
+                    errorInfo.status === 503
+                      ? "bg-amber-50/95 border-amber-300 text-amber-950"
+                      : "bg-red-50/95 border-red-200 text-red-900"
+                  }`}
+                >
+                  <AlertCircle
+                    className={`w-5 h-5 shrink-0 mt-0.5 ${
+                      errorInfo.status === 503 ? "text-amber-600" : "text-red-600"
+                    }`}
+                  />
+                  <div className="flex-1 space-y-1.5 min-w-0">
+                    <div className="flex items-center justify-between gap-2 flex-wrap">
+                      <strong className="block font-bold">
+                        {isBn
+                          ? `${errorInfo.titleBn} (${errorInfo.titleEn})`
+                          : `${errorInfo.titleEn} / ${errorInfo.titleBn}`}
+                      </strong>
+                      {errorInfo.status && (
+                        <span
+                          className={`text-[11px] font-mono font-semibold px-2 py-0.5 rounded ${
+                            errorInfo.status === 503
+                              ? "bg-amber-200/70 text-amber-900"
+                              : "bg-red-200/70 text-red-900"
+                          }`}
+                        >
+                          HTTP {errorInfo.status}
+                        </span>
+                      )}
+                    </div>
+                    <p className="leading-snug">{errorInfo.en}</p>
+                    <p
+                      className={`leading-snug pt-1 border-t font-medium ${
+                        errorInfo.status === 503
+                          ? "border-amber-200/70 text-amber-900"
+                          : "border-red-200/70 text-red-800"
+                      }`}
+                    >
+                      {errorInfo.bn}
+                    </p>
                   </div>
                 </div>
               )}
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
-                {/* Name */}
-                <div>
-                  <label
-                    htmlFor="name"
-                    className="block text-xs font-semibold uppercase tracking-wider text-[#595959] mb-1.5"
-                  >
-                    {isBn ? "আপনার নাম *" : "Your Name *"}
-                  </label>
-                  <div className="relative">
-                    <User className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#8C827A]" />
-                    <input
-                      id="name"
-                      name="name"
-                      type="text"
-                      required
-                      placeholder={isBn ? "উদা: আহমদ খান" : "e.g. Ahmad Khan"}
-                      value={formData.name}
-                      onChange={handleChange}
-                      disabled={isSubmitting}
-                      className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white/90 backdrop-blur-xs border border-[#D6CEC0] text-sm text-[#252525] placeholder-stone-400 focus:outline-none focus:border-[#B89550] focus:ring-1 focus:ring-[#B89550] transition-all disabled:opacity-60"
-                    />
-                  </div>
-                </div>
-
-                {/* Email */}
-                <div>
-                  <label
-                    htmlFor="email"
-                    className="block text-xs font-semibold uppercase tracking-wider text-[#595959] mb-1.5"
-                  >
-                    {isBn ? "ইমেইল ঠিকানা *" : "Email Address *"}
-                  </label>
-                  <div className="relative">
-                    <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#8C827A]" />
-                    <input
-                      id="email"
-                      name="email"
-                      type="email"
-                      required
-                      placeholder="ahmad@example.com"
-                      value={formData.email}
-                      onChange={handleChange}
-                      disabled={isSubmitting}
-                      className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white/90 backdrop-blur-xs border border-[#D6CEC0] text-sm text-[#252525] placeholder-stone-400 focus:outline-none focus:border-[#B89550] focus:ring-1 focus:ring-[#B89550] transition-all disabled:opacity-60"
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
-                {/* Category */}
-                <div>
-                  <label
-                    htmlFor="category"
-                    className="block text-xs font-semibold uppercase tracking-wider text-[#595959] mb-1.5"
-                  >
-                    {isBn ? "জিজ্ঞাসার বিষয়" : "Inquiry Category"}
-                  </label>
-                  <select
-                    id="category"
-                    name="category"
-                    value={formData.category}
-                    onChange={handleChange}
-                    disabled={isSubmitting}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-white/90 backdrop-blur-xs border border-[#D6CEC0] text-sm text-[#252525] focus:outline-none focus:border-[#B89550] focus:ring-1 focus:ring-[#B89550] transition-all disabled:opacity-60"
-                  >
-                    <option value="General Inquiry">{isBn ? "সাধারণ জিজ্ঞাসা" : "General Inquiry"}</option>
-                    <option value="Prayer Services">{isBn ? "নামাজ ও জুমার সময়সূচি" : "Prayer & Jumu'ah Services"}</option>
-                    <option value="Education & Classes">{isBn ? "কুরআন ও ইসলামী শিক্ষা" : "Qur'an & Islamic Education"}</option>
-                    <option value="Youth & Family">{isBn ? "যুব ও পরিবার কার্যক্রম" : "Youth & Family Activities"}</option>
-                    <option value="Donations & Zakat">{isBn ? "দান ও যাকাত সংক্রান্ত" : "Donations & Charitable Support"}</option>
-                  </select>
-                </div>
-
-                {/* Subject */}
-                <div>
-                  <label
-                    htmlFor="subject"
-                    className="block text-xs font-semibold uppercase tracking-wider text-[#595959] mb-1.5"
-                  >
-                    {isBn ? "বিষয় (ঐচ্ছিক)" : "Subject (Optional)"}
-                  </label>
+              {/* Name Field */}
+              <div>
+                <label
+                  htmlFor="name"
+                  className="block text-xs font-semibold uppercase tracking-wider text-[#595959] mb-1.5"
+                >
+                  {isBn ? "আপনার নাম *" : "Your Name *"}
+                </label>
+                <div className="relative">
+                  <User className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#8C827A]" />
                   <input
-                    id="subject"
-                    name="subject"
+                    id="name"
+                    name="name"
                     type="text"
-                    placeholder={isBn ? "সংক্ষিপ্ত বিষয়" : "Brief topic summary"}
-                    value={formData.subject}
+                    required
+                    placeholder={isBn ? "উদা: আহমদ খান" : "e.g. Ahmad Khan"}
+                    value={formData.name}
                     onChange={handleChange}
                     disabled={isSubmitting}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-white/90 backdrop-blur-xs border border-[#D6CEC0] text-sm text-[#252525] placeholder-stone-400 focus:outline-none focus:border-[#B89550] focus:ring-1 focus:ring-[#B89550] transition-all disabled:opacity-60"
+                    className="w-full pl-10 pr-4 py-3 rounded-xl bg-white/90 backdrop-blur-xs border border-[#D6CEC0] text-sm text-[#252525] placeholder-stone-400 focus:outline-none focus:border-[#B89550] focus:ring-1 focus:ring-[#B89550] transition-all disabled:opacity-60"
                   />
                 </div>
               </div>
 
-              {/* Message */}
+              {/* Message Details Field */}
               <div>
                 <label
                   htmlFor="message"
@@ -312,9 +323,13 @@ export default function ContactForm() {
                 <textarea
                   id="message"
                   name="message"
-                  rows="4"
+                  rows="5"
                   required
-                  placeholder={isBn ? "আপনার বার্তা বা জিজ্ঞাসা এখানে লিখুন..." : "Please write your inquiry or message here..."}
+                  placeholder={
+                    isBn
+                      ? "আপনার বার্তা বা জিজ্ঞাসা এখানে লিখুন..."
+                      : "Please write your inquiry or message here..."
+                  }
                   value={formData.message}
                   onChange={handleChange}
                   disabled={isSubmitting}

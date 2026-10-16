@@ -474,18 +474,19 @@ function MemberCard({ member, isBn, onSelect, getInitials, isProminent }) {
   return (
     <div
       onClick={onSelect}
-      className={`group relative bg-white rounded-2xl border transition-all duration-300 flex flex-col justify-between overflow-hidden cursor-pointer hover:shadow-md hover:-translate-y-1 ${
+      className={`group relative glass-card rounded-2xl flex flex-col justify-between overflow-hidden cursor-pointer ${
         isProminent
-          ? "border-[#B89550]/40 shadow-xs ring-1 ring-[#B89550]/20"
-          : "border-[#E5DFD3] shadow-2xs"
+          ? "border-[#B89550]/50 shadow-md ring-1 ring-[#B89550]/30"
+          : "border-white/85 shadow-sm"
       }`}
     >
+      <div className="glass-specular-top" />
       {/* Top Banner Accent */}
       <div
         className={`h-1.5 w-full bg-gradient-to-r ${
           isProminent
             ? "from-[#B89550] via-[#D8B775] to-[#A07E3C]"
-            : "from-[#E5DFD3] via-[#B89550]/40 to-[#E5DFD3]"
+            : "from-transparent via-[#B89550]/40 to-transparent"
         }`}
       />
 

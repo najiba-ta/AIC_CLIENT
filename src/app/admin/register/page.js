@@ -107,8 +107,8 @@ export default function AdminRegisterPage() {
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-lg">
-        <div className="bg-white py-8 px-6 sm:px-10 shadow-xl shadow-stone-300/40 rounded-2xl border border-[#E5DFD3] relative">
-          <div className="absolute -top-px left-8 right-8 h-px bg-gradient-to-r from-transparent via-[#B89550]/60 to-transparent" />
+        <div className="glass-panel py-8 px-6 sm:px-10 shadow-2xl rounded-3xl relative overflow-hidden">
+          <div className="glass-specular-top" />
 
           {/* Security Notice Banner */}
           <div className="mb-6 p-3 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-xs flex items-start gap-2.5">
@@ -267,7 +267,7 @@ export default function AdminRegisterPage() {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full mt-2 flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-[#B89550] hover:bg-[#A58342] text-white font-bold text-sm tracking-wide shadow-md shadow-[#B89550]/20 hover:shadow-lg transition-all transform active:scale-[0.99] disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer"
+                className="btn-gold w-full mt-2 flex items-center justify-center gap-2 py-3 px-4 rounded-xl font-bold text-sm tracking-wide shadow-md disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer"
               >
                 {isLoading ? (
                   <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />

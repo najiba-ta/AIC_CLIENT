@@ -117,13 +117,14 @@ export default function MissionSection() {
               return (
                 <div
                   key={idx}
-                  className="p-5 rounded-2xl bg-white/75 backdrop-blur-xs border border-white/85 shadow-2xs flex flex-col justify-between"
+                  className="p-5 rounded-2xl glass-card flex flex-col justify-between group"
                 >
+                  <div className="glass-specular-top" />
                   <div>
-                    <div className="w-10 h-10 rounded-xl bg-[#FAF8F2] text-[#B89550] border border-[#B89550]/30 flex items-center justify-center shadow-3xs mb-3">
+                    <div className="w-10 h-10 rounded-xl bg-[#FAF8F2] text-[#B89550] border border-[#B89550]/30 flex items-center justify-center shadow-3xs mb-3 group-hover:scale-110 group-hover:bg-[#B89550] group-hover:text-white transition-all duration-300">
                       <Icon className="w-5 h-5" />
                     </div>
-                    <h3 className="text-base font-bold text-[#252525]">{pillar.title}</h3>
+                    <h3 className="text-base font-bold text-[#252525] group-hover:text-[#B89550] transition-colors">{pillar.title}</h3>
                     <p className="mt-1.5 text-xs text-[#595959] leading-relaxed">{pillar.desc}</p>
                   </div>
                 </div>
@@ -135,15 +136,16 @@ export default function MissionSection() {
           <div className="mt-10 sm:mt-12 pt-8 border-t border-stone-200/60 flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
               href="/#donate"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-xl text-sm font-bold text-white bg-[#B89550] hover:bg-[#A58342] shadow-md shadow-[#B89550]/20 hover:shadow-lg transition-all duration-200 active:scale-[0.98]"
+              className="w-full sm:w-auto btn-gold !py-3.5 !text-sm shadow-md shadow-[#B89550]/25 hover:shadow-xl hover:shadow-[#B89550]/35"
             >
+              <div className="absolute top-0 inset-x-0 h-px bg-white/40 pointer-events-none" />
               <Heart className="w-4 h-4 fill-white shrink-0" />
               <span>{isBn ? "অনুদান দিয়ে পাশে থাকুন" : "Support Our Mission"}</span>
             </Link>
 
             <Link
               href="/about"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold text-[#252525] bg-white/85 backdrop-blur-md hover:bg-white border border-white/90 hover:border-[#B89550]/60 shadow-2xs transition-all duration-200"
+              className="w-full sm:w-auto btn-glass !py-3.5 !text-sm"
             >
               <span>{isBn ? "আমাদের সম্পর্কে জানুন" : "About Us"}</span>
               <ArrowRight className="w-4 h-4 text-[#B89550]" />

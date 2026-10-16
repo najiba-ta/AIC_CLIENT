@@ -284,8 +284,9 @@ export default function EventsClient() {
           <div className="mt-6 flex flex-wrap items-center justify-center gap-4">
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2 px-7 py-3 rounded-xl bg-[#B89550] hover:bg-[#A58342] text-white font-bold text-sm shadow-md shadow-[#B89550]/20"
+              className="btn-gold !px-7 !py-3 !text-sm shadow-md shadow-[#B89550]/25 hover:shadow-xl hover:shadow-[#B89550]/35"
             >
+              <div className="absolute top-0 inset-x-0 h-px bg-white/40 pointer-events-none" />
               <span>{isBn ? "প্রশাসন দপ্তরে যোগাযোগ" : "Contact Event Coordinator"}</span>
               <ArrowRight className="w-4 h-4" />
             </Link>

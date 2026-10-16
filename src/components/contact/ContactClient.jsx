@@ -20,7 +20,7 @@ export default function ContactClient() {
         },
         {
           q: "সন্তানদের কুরআন ও ইসলামিক স্টাডিজ ক্লাসে কীভাবে ভর্তি করাব?",
-          a: "আপনি আমাদের কন্টাক্ট ফরমে 'কুরআন ও ইসলামিক শিক্ষা' ক্যাটাগরি সিলেক্ট করে বার্তা পাঠাতে পারেন অথবা সরাসরি জুমার নামাজের পর শিক্ষা সমন্বয়কারীদের সাথে দেখা করতে পারেন।",
+          a: "আপনি আমাদের কন্টাক্ট ফরমে বার্তা পাঠাতে পারেন অথবা সরাসরি জুমার নামাজের পর শিক্ষা সমন্বয়কারীদের সাথে দেখা করতে পারেন।",
         },
         {
           q: "অনলাইন দানের ক্ষেত্রে কীভাবে রশিদ পাওয়া যাবে?",
@@ -38,7 +38,7 @@ export default function ContactClient() {
         },
         {
           q: "How can I register my children for Qur'an and Islamic studies classes?",
-          a: "You can submit an inquiry through our contact form under 'Education & Classes' or visit the center following Friday Jumu'ah services to meet with our education coordinators.",
+          a: "You can submit an inquiry through our contact form or visit the center following Friday Jumu'ah services to meet with our education coordinators.",
         },
         {
           q: "How do I receive a tax receipt for my Stripe online donation?",

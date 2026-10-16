@@ -422,14 +422,14 @@ export default function StudentAdmissionPage() {
             <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
               <Link
                 href="/portal"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-xs sm:text-sm font-bold text-white bg-[#B89550] hover:bg-[#A58342] shadow-sm transition-all cursor-pointer"
+                className="btn-gold w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-xs sm:text-sm font-bold shadow-sm cursor-pointer"
               >
                 <span>{isBn ? "মেম্বার পোর্টালে যান" : "Go to Member Portal"}</span>
                 <ArrowRight className="w-4 h-4" />
               </Link>
               <Link
                 href="/"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-xs sm:text-sm font-bold text-[#252525] bg-white hover:bg-stone-50 border border-[#E5DFD3] transition-all cursor-pointer"
+                className="btn-glass w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-xs sm:text-sm font-bold text-[#252525] cursor-pointer"
               >
                 <span>{isBn ? "হোমপেজে ফিরে যান" : "Back to Home"}</span>
               </Link>
@@ -1243,7 +1243,7 @@ export default function StudentAdmissionPage() {
           <div className="pt-4 flex flex-col sm:flex-row items-center justify-between gap-4">
             <Link
               href="/portal"
-              className="w-full sm:w-auto px-5 py-3 rounded-xl text-xs sm:text-sm font-semibold text-[#595959] hover:text-[#252525] bg-white border border-[#E5DFD3] hover:border-[#B89550] transition-all text-center"
+              className="btn-glass w-full sm:w-auto px-5 py-3 rounded-xl text-xs sm:text-sm font-semibold text-[#595959] hover:text-[#252525] text-center"
             >
               {isBn ? "বাতিল করে পোর্টালে ফিরুন" : "Cancel & Return to Portal"}
             </Link>
@@ -1251,11 +1251,11 @@ export default function StudentAdmissionPage() {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl text-xs sm:text-sm font-bold text-white bg-[#B89550] hover:bg-[#A58342] shadow-md transition-all cursor-pointer disabled:opacity-50"
+              className="btn-gold w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl text-xs sm:text-sm font-bold shadow-md cursor-pointer disabled:opacity-50"
             >
               {isSubmitting ? (
                 <>
-                  <Loader2 className="w-4 h-4 animate-spin" />
+                  <Loader2 className="w-4 h-4 animate-spin text-white" />
                   <span>{isBn ? "জমা হচ্ছে..." : "Submitting Application..."}</span>
                 </>
               ) : (

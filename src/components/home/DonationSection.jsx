@@ -329,7 +329,7 @@ export default function DonationSection() {
               disabled={!isValidAmount || isLoading}
               className={`w-full sm:w-auto min-h-[50px] inline-flex items-center justify-center gap-2.5 px-8 sm:px-10 py-3.5 sm:py-4 text-sm sm:text-base font-bold rounded-xl transition-all duration-200 relative overflow-hidden ${
                 isValidAmount && !isLoading
-                  ? "bg-[#B89550] hover:bg-[#A58342] text-white active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-[#B89550] focus:ring-offset-2 focus:ring-offset-white shadow-md shadow-[#B89550]/20 hover:shadow-lg hover:shadow-[#B89550]/30 transform hover:-translate-y-0.5 cursor-pointer"
+                  ? "btn-gold shadow-lg shadow-[#B89550]/25 hover:shadow-xl hover:shadow-[#B89550]/35"
                   : "bg-stone-200 text-stone-400 border border-stone-300 cursor-not-allowed opacity-70 shadow-none"
               }`}
             >

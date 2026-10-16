@@ -374,17 +374,18 @@ export default function AboutClient() {
                   : "Whether you are visiting for daily prayers, seeking Islamic education, or connecting with fellow believers, our doors are open to you."}
               </p>
             </div>
-            <div className="flex items-center gap-3 shrink-0">
+            <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0 w-full sm:w-auto">
               <Link
                 href="/prayer-times"
-                className="px-5 py-3 rounded-xl bg-white/90 backdrop-blur-xs text-[#252525] text-sm font-semibold border border-white/80 hover:border-[#B89550]/60 transition-colors shadow-2xs"
+                className="w-full sm:w-auto btn-glass !py-3 !text-sm"
               >
                 {isBn ? "নামাজের সময়সূচি" : "Prayer Times"}
               </Link>
               <Link
                 href="/contact"
-                className="px-6 py-3 rounded-xl bg-[#B89550] hover:bg-[#A58342] text-white text-sm font-bold shadow-md shadow-[#B89550]/20"
+                className="w-full sm:w-auto btn-gold !py-3 !text-sm shadow-md shadow-[#B89550]/25 hover:shadow-xl hover:shadow-[#B89550]/35"
               >
+                <div className="absolute top-0 inset-x-0 h-px bg-white/40 pointer-events-none" />
                 {isBn ? "যোগাযোগ করুন" : "Get In Touch"}
               </Link>
             </div>

@@ -146,8 +146,9 @@ export default function MemberLoginPage() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full mt-2 flex items-center justify-center gap-2 py-3.5 px-6 rounded-xl bg-[#B89550] hover:bg-[#A58342] text-white font-bold text-sm tracking-wide shadow-md shadow-[#B89550]/20 hover:shadow-lg transition-all transform active:scale-[0.99] disabled:opacity-50 cursor-pointer"
+              className="w-full mt-2 btn-gold !py-3.5 !text-sm shadow-md shadow-[#B89550]/25 hover:shadow-xl hover:shadow-[#B89550]/35 disabled:opacity-60 disabled:cursor-not-allowed"
             >
+              <div className="absolute top-0 inset-x-0 h-px bg-white/40 pointer-events-none" />
               {isLoading ? (
                 <>
                   <Loader2 className="w-4 h-4 animate-spin text-white" />

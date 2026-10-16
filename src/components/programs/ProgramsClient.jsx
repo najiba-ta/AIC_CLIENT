@@ -319,7 +319,7 @@ export default function ProgramsClient() {
                   <div className="pt-5 mt-4 border-t border-stone-200/60">
                     <Link
                       href="/contact"
-                      className="inline-flex items-center justify-center gap-1.5 w-full py-2.5 px-4 rounded-xl bg-white/80 hover:bg-white text-xs font-bold text-[#252525] border border-stone-200 hover:border-[#B89550]/60 transition-all shadow-2xs"
+                      className="w-full btn-glass !py-2.5 !text-xs"
                     >
                       <span>{isBn ? "প্রোগ্রাম সম্পর্কে জানুন" : "Inquire About Program"}</span>
                       <ArrowRight className="w-3.5 h-3.5 text-[#B89550]" />
@@ -347,14 +347,15 @@ export default function ProgramsClient() {
           <div className="mt-6 flex flex-wrap items-center justify-center gap-4">
             <Link
               href="/#donate"
-              className="inline-flex items-center gap-2 px-7 py-3 rounded-xl bg-[#B89550] hover:bg-[#A58342] text-white font-bold text-sm shadow-md shadow-[#B89550]/20"
+              className="btn-gold !px-7 !py-3 !text-sm shadow-md shadow-[#B89550]/25 hover:shadow-xl hover:shadow-[#B89550]/35"
             >
+              <div className="absolute top-0 inset-x-0 h-px bg-white/40 pointer-events-none" />
               <Heart className="w-4 h-4 fill-white" />
               <span>{isBn ? "দান করুন" : "Donate to Programs"}</span>
             </Link>
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white text-[#252525] font-semibold text-sm border border-stone-200 hover:border-[#B89550]/60"
+              className="btn-glass !px-6 !py-3 !text-sm"
             >
               <span>{isBn ? "যোগাযোগ করুন" : "Contact Us"}</span>
             </Link>

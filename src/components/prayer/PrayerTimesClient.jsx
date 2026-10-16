@@ -143,7 +143,7 @@ export default function PrayerTimesClient() {
               return (
                 <div
                   key={prayer.name}
-                  className="relative rounded-2xl p-5 bg-white/80 backdrop-blur-md border border-white/85 shadow-sm hover:shadow-xl hover:shadow-[#B89550]/10 flex flex-col justify-between group hover:border-[#B89550]/60 transition-all duration-300 hover:-translate-y-1 overflow-hidden"
+                  className="rounded-2xl p-5 glass-card flex flex-col justify-between group overflow-hidden"
                 >
                   <div className="glass-specular-top" />
                   <div className="absolute top-0 inset-x-0 h-0.5 bg-gradient-to-r from-transparent via-[#B89550]/40 to-transparent group-hover:via-[#B89550] transition-all rounded-t-2xl" />

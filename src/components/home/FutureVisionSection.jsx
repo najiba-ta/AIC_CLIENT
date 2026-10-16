@@ -215,8 +215,9 @@ export default function FutureVisionSection() {
           <div className="relative z-10 shrink-0">
             <Link
               href="/#donate"
-              className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl text-sm font-bold text-white bg-[#B89550] hover:bg-[#A58342] shadow-md shadow-[#B89550]/20 hover:shadow-lg transition-all duration-200"
+              className="btn-gold !px-8 !py-3.5 !text-sm shadow-md shadow-[#B89550]/25 hover:shadow-xl hover:shadow-[#B89550]/35"
             >
+              <div className="absolute top-0 inset-x-0 h-px bg-white/40 pointer-events-none" />
               <Heart className="w-4 h-4 fill-white shrink-0" />
               <span>{isBn ? "সদকা / অনুদান দিন" : "Donate & Support"}</span>
               <ArrowRight className="w-4 h-4 shrink-0" />

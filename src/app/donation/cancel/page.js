@@ -58,7 +58,7 @@ export default function DonationCancelPage() {
             {/* Try Again Button */}
             <Link
               href="/#donate"
-              className="w-full sm:w-auto min-h-[48px] inline-flex items-center justify-center gap-2 px-7 py-3.5 text-sm sm:text-base font-bold text-white bg-[#B89550] hover:bg-[#A58342] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-[#B89550] focus:ring-offset-2 focus:ring-offset-white rounded-xl shadow-md shadow-[#B89550]/20 hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5"
+              className="btn-gold w-full sm:w-auto min-h-[48px] inline-flex items-center justify-center gap-2 px-7 py-3.5 text-sm sm:text-base font-bold rounded-xl shadow-md cursor-pointer"
             >
               <RefreshCw className="w-4 h-4 shrink-0" />
               <span>Try Again</span>
@@ -67,7 +67,7 @@ export default function DonationCancelPage() {
             {/* Return to Homepage Button */}
             <Link
               href="/"
-              className="w-full sm:w-auto min-h-[48px] inline-flex items-center justify-center gap-2 px-6 py-3.5 text-sm sm:text-base font-semibold text-[#252525] bg-[#FAF8F2] hover:bg-[#F1EDE3] border border-[#E5DFD3] hover:border-[#B89550]/60 hover:text-[#B89550] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-[#B89550]/50 focus:ring-offset-2 focus:ring-offset-white rounded-xl transition-all duration-200 shadow-2xs"
+              className="btn-glass w-full sm:w-auto min-h-[48px] inline-flex items-center justify-center gap-2 px-6 py-3.5 text-sm sm:text-base font-semibold text-[#252525] rounded-xl cursor-pointer"
             >
               <ArrowLeft className="w-4 h-4 shrink-0" />
               <span>Return Home</span>

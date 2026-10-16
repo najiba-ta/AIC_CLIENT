@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, Building2, Heart, BookOpen } from "lucide-react";
+import Image from "next/image";
+import { ArrowRight, Building2, Heart, BookOpen, Sparkles } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 
 export default function AboutSection() {
@@ -12,20 +13,20 @@ export default function AboutSection() {
       {/* Subtle Ambient Background Accent */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
         <div
-          className="absolute top-1/2 right-1/4 -translate-y-1/2 w-[500px] sm:w-[800px] h-[350px] sm:h-[450px] rounded-full opacity-30 blur-3xl pointer-events-none"
+          className="absolute top-1/2 right-1/4 -translate-y-1/2 w-[500px] sm:w-[800px] h-[350px] sm:h-[450px] rounded-full opacity-35 blur-3xl pointer-events-none"
           style={{
-            background: "radial-gradient(circle, rgba(184, 149, 80, 0.15) 0%, rgba(250, 248, 242, 0.4) 50%, transparent 70%)",
+            background: "radial-gradient(circle, rgba(184, 149, 80, 0.18) 0%, rgba(250, 248, 242, 0.4) 50%, transparent 70%)",
           }}
         />
         {/* Top Decorative Gold Line */}
-        <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[#B89550]/30 to-transparent" />
+        <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[#B89550]/40 to-transparent" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto min-w-0">
         {/* Section Heading & Subtitle */}
         <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14 lg:mb-16 min-w-0">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-[#B89550]/40 text-xs sm:text-sm font-semibold text-[#B89550] shadow-2xs mb-3 sm:mb-4">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#B89550]" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-pill text-xs sm:text-sm font-semibold text-[#B89550] shadow-2xs mb-3 sm:mb-4">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#B89550] animate-pulse" />
             <span>{isBn ? "পরিচিতি ও লক্ষ্য" : "Who We Are"}</span>
           </div>
 
@@ -36,11 +37,11 @@ export default function AboutSection() {
             </span>
           </h2>
 
-          {/* Decorative Subtle Gold Accent Motif */}
-          <div className="flex items-center justify-center gap-2 my-3 sm:my-3.5">
-            <div className="w-10 sm:w-12 h-px bg-gradient-to-r from-transparent to-[#B89550]/60" />
-            <div className="w-1.5 h-1.5 rotate-45 bg-[#B89550]" />
-            <div className="w-10 sm:w-12 h-px bg-gradient-to-l from-transparent to-[#B89550]/60" />
+          {/* Ornamental Divider with Gold Diamond */}
+          <div className="ornament-divider my-3.5 sm:my-4">
+            <div className="ornament-line" />
+            <div className="ornament-diamond" />
+            <div className="ornament-line" />
           </div>
 
           <p className="text-sm sm:text-base md:text-lg text-[#595959] leading-relaxed sm:leading-loose">
@@ -50,7 +51,7 @@ export default function AboutSection() {
           </p>
         </div>
 
-        {/* Layout: 1-Column on Mobile, 2-Column on Tablet & Desktop */}
+        {/* Layout: 2-Column on Tablet & Desktop */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-8 lg:gap-12 items-center">
           {/* Text Column */}
           <div className="md:col-span-7 flex flex-col items-center md:items-start text-center md:text-left min-w-0">
@@ -70,9 +71,9 @@ export default function AboutSection() {
 
             {/* Feature Highlight Cards in Frosted Glass */}
             <div className="mt-6 sm:mt-8 grid grid-cols-1 sm:grid-cols-3 gap-3 w-full">
-              <div className="flex items-center gap-2.5 sm:gap-3 p-3 sm:p-3.5 rounded-2xl bg-white/75 backdrop-blur-md border border-white/85 hover:border-[#B89550]/60 shadow-sm shadow-stone-200/30 hover:bg-white/95 transition-all duration-200 relative overflow-hidden">
+              <div className="flex items-center gap-2.5 sm:gap-3 p-3.5 rounded-2xl glass-card relative overflow-hidden group">
                 <div className="glass-specular-top" />
-                <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-[#FAF8F2] text-[#B89550] border border-[#B89550]/30 flex items-center justify-center shrink-0 shadow-2xs">
+                <div className="w-9 h-9 rounded-xl bg-[#FAF8F2] text-[#B89550] border border-[#B89550]/30 flex items-center justify-center shrink-0 shadow-2xs group-hover:scale-110 transition-transform">
                   <Building2 className="w-4 h-4" />
                 </div>
                 <span className="text-xs sm:text-sm font-semibold text-[#252525] text-left">
@@ -80,9 +81,9 @@ export default function AboutSection() {
                 </span>
               </div>
 
-              <div className="flex items-center gap-2.5 sm:gap-3 p-3 sm:p-3.5 rounded-2xl bg-white/75 backdrop-blur-md border border-white/85 hover:border-[#B89550]/60 shadow-sm shadow-stone-200/30 hover:bg-white/95 transition-all duration-200 relative overflow-hidden">
+              <div className="flex items-center gap-2.5 sm:gap-3 p-3.5 rounded-2xl glass-card relative overflow-hidden group">
                 <div className="glass-specular-top" />
-                <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-[#FAF8F2] text-[#B89550] border border-[#B89550]/30 flex items-center justify-center shrink-0 shadow-2xs">
+                <div className="w-9 h-9 rounded-xl bg-[#FAF8F2] text-[#B89550] border border-[#B89550]/30 flex items-center justify-center shrink-0 shadow-2xs group-hover:scale-110 transition-transform">
                   <BookOpen className="w-4 h-4" />
                 </div>
                 <span className="text-xs sm:text-sm font-semibold text-[#252525] text-left">
@@ -90,9 +91,9 @@ export default function AboutSection() {
                 </span>
               </div>
 
-              <div className="flex items-center gap-2.5 sm:gap-3 p-3 sm:p-3.5 rounded-2xl bg-white/75 backdrop-blur-md border border-white/85 hover:border-[#B89550]/60 shadow-sm shadow-stone-200/30 hover:bg-white/95 transition-all duration-200 relative overflow-hidden">
+              <div className="flex items-center gap-2.5 sm:gap-3 p-3.5 rounded-2xl glass-card relative overflow-hidden group">
                 <div className="glass-specular-top" />
-                <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-[#FAF8F2] text-[#B89550] border border-[#B89550]/30 flex items-center justify-center shrink-0 shadow-2xs">
+                <div className="w-9 h-9 rounded-xl bg-[#FAF8F2] text-[#B89550] border border-[#B89550]/30 flex items-center justify-center shrink-0 shadow-2xs group-hover:scale-110 transition-transform">
                   <Heart className="w-4 h-4" />
                 </div>
                 <span className="text-xs sm:text-sm font-semibold text-[#252525] text-left">
@@ -105,7 +106,7 @@ export default function AboutSection() {
             <div className="mt-7 sm:mt-9 w-full sm:w-auto">
               <Link
                 href="/about"
-                className="w-full sm:w-auto min-h-[48px] inline-flex items-center justify-center gap-2.5 px-8 py-3.5 text-sm sm:text-base font-bold text-white bg-[#B89550] hover:bg-[#A58342] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-[#B89550] focus:ring-offset-2 focus:ring-offset-[#F1EDE3] rounded-xl shadow-md shadow-[#B89550]/20 hover:shadow-lg hover:shadow-[#B89550]/30 transition-all duration-200 transform hover:-translate-y-0.5 relative overflow-hidden"
+                className="w-full sm:w-auto min-h-[48px] btn-gold"
               >
                 <div className="absolute top-0 inset-x-0 h-px bg-white/40 pointer-events-none" />
                 <span>{isBn ? "বিস্তারিত জানুন" : "Learn More"}</span>
@@ -114,30 +115,33 @@ export default function AboutSection() {
             </div>
           </div>
 
-          {/* Image Area Column in Frosted Glass Panel */}
+          {/* Visual Showcase Card in Frosted Glass Panel */}
           <div className="md:col-span-5 w-full flex justify-center md:justify-end min-w-0">
             <div className="w-full max-w-md md:max-w-none">
-              <div className="relative rounded-3xl p-3 bg-white/80 backdrop-blur-xl shadow-xl shadow-stone-300/30 border border-white/90">
+              <div className="relative rounded-3xl p-3 glass-panel shadow-2xl">
                 <div className="glass-specular-top" />
-                <div className="relative overflow-hidden rounded-2xl aspect-[4/3] sm:aspect-[16/10] md:aspect-[4/3] bg-gradient-to-b from-[#FAF8F2]/90 to-[#F1EDE3]/70 flex flex-col items-center justify-center p-5 sm:p-6 text-center border border-white/80">
-                  {/* Subtle Geometric Dot Lattice */}
-                  <div className="absolute inset-0 opacity-15 bg-[radial-gradient(#B89550_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none" />
+                <div className="relative overflow-hidden rounded-2xl aspect-[4/3] sm:aspect-[16/10] md:aspect-[4/3] border border-white/80 group">
+                  <Image
+                    src="/images/tasbih-book.jpg"
+                    alt="Sacred Quran and Tasbih"
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
+                  {/* Subtle Gradient Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent pointer-events-none" />
 
-                  {/* Visual Icon Badge */}
-                  <div className="relative z-10 w-14 h-14 sm:w-16 sm:h-16 md:w-18 md:h-18 rounded-2xl bg-white/90 backdrop-blur-md border-2 border-[#B89550] flex items-center justify-center text-[#B89550] shadow-md mb-3 sm:mb-4">
-                    <Building2 className="w-7 h-7 sm:w-8 sm:h-8 md:w-9 md:h-9" />
-                  </div>
-
-                  {/* Content */}
-                  <div className="relative z-10">
-                    <h3 className="text-sm sm:text-base md:text-lg font-bold text-[#252525]">
-                      {isBn ? "আল হিদায়াহ ইসলামিক সেন্টার" : "Al Hidayah Islamic Center"}
-                    </h3>
-                    <p className="mt-1 text-xs sm:text-sm text-[#B89550] font-medium">
-                      {isBn ? "দ্বীনি মারকায ও কমিউনিটি স্পেস" : "Center Facility & Community Space"}
-                    </p>
-                    <span className="inline-block mt-2.5 sm:mt-3 px-3 py-1 text-[11px] font-semibold text-[#595959] bg-white/80 backdrop-blur-sm rounded-full border border-white/90 shadow-2xs">
-                      {isBn ? "আধ্যাত্মিক আশ্রয়স্থল" : "Spiritual Sanctuary"}
+                  {/* Floating Glass Label */}
+                  <div className="absolute bottom-4 inset-x-4 p-3 rounded-xl bg-black/60 backdrop-blur-md border border-white/20 text-white flex items-center justify-between">
+                    <div>
+                      <h4 className="text-xs sm:text-sm font-bold text-white">
+                        {isBn ? "আল হিদায়াহ ইসলামিক সেন্টার" : "Al Hidayah Islamic Center"}
+                      </h4>
+                      <p className="text-[11px] text-[#C9A86A]">
+                        {isBn ? "দ্বীন, হেদায়াত ও পবিত্রতার কেন্দ্র" : "A Sanctuary of Faith & Guidance"}
+                      </p>
+                    </div>
+                    <span className="w-8 h-8 rounded-lg bg-[#B89550] flex items-center justify-center text-white shrink-0 shadow-md">
+                      <Sparkles className="w-4 h-4" />
                     </span>
                   </div>
                 </div>

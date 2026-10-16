@@ -421,7 +421,7 @@ export default function MemberRegisterPage() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full mt-3 flex items-center justify-center gap-2 py-3.5 px-6 rounded-xl bg-[#B89550] hover:bg-[#A58342] text-white font-bold text-sm tracking-wide shadow-md shadow-[#B89550]/20 hover:shadow-lg transition-all transform active:scale-[0.99] disabled:opacity-50 cursor-pointer"
+              className="btn-gold w-full mt-3 flex items-center justify-center gap-2 py-3.5 px-6 rounded-xl font-bold text-sm tracking-wide shadow-md disabled:opacity-50 cursor-pointer"
             >
               {isLoading ? (
                 <>

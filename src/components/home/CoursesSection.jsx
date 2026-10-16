@@ -354,7 +354,7 @@ export default function CoursesSection() {
             <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0 w-full sm:w-auto">
               <Link
                 href="/courses"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl text-xs sm:text-sm font-bold text-[#252525] bg-white/90 backdrop-blur-md hover:bg-white border border-white/90 hover:border-[#B89550]/60 shadow-2xs transition-all duration-200"
+                className="w-full sm:w-auto btn-glass !py-3 !text-xs sm:!text-sm"
               >
                 <span>{isBn ? "বিস্তারিত সিলেবাস" : "View Course Details"}</span>
                 <ArrowRight className="w-4 h-4 text-[#B89550]" />
@@ -362,7 +362,7 @@ export default function CoursesSection() {
 
               <Link
                 href="/register?role=student&program=Comprehensive%20Islamic%20Education%20Program"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-xl text-sm sm:text-base font-bold text-white bg-[#B89550] hover:bg-[#A58342] shadow-lg shadow-[#B89550]/25 hover:shadow-xl hover:shadow-[#B89550]/30 transition-all duration-200 active:scale-[0.98] relative overflow-hidden"
+                className="w-full sm:w-auto btn-gold !py-3.5 !text-sm sm:!text-base shadow-lg shadow-[#B89550]/25 hover:shadow-xl hover:shadow-[#B89550]/35"
               >
                 <div className="absolute top-0 inset-x-0 h-px bg-white/40 pointer-events-none" />
                 <BookCheck className="w-4 h-4 shrink-0" />

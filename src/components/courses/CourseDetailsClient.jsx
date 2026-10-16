@@ -476,7 +476,7 @@ export default function CourseDetailsClient() {
           <div className="shrink-0">
             <Link
               href="/register?role=student&program=Comprehensive%20Islamic%20Education%20Program"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold text-white bg-[#B89550] hover:bg-[#A58342] shadow-md shadow-[#B89550]/20 hover:shadow-lg transition-all duration-200"
+              className="btn-gold inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold shadow-md"
             >
               <BookCheck className="w-4 h-4 shrink-0" />
               <span>{isBn ? "প্রোগ্রামে ভর্তি হোন" : "Enroll in Program"}</span>
@@ -798,9 +798,8 @@ export default function CourseDetailsClient() {
             <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link
                 href="/register?role=student&program=Comprehensive%20Islamic%20Education%20Program"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-9 py-4 rounded-xl text-base font-bold text-white bg-[#B89550] hover:bg-[#A58342] shadow-lg shadow-[#B89550]/25 hover:shadow-xl hover:shadow-[#B89550]/30 transition-all duration-200 active:scale-[0.98] relative overflow-hidden"
+                className="btn-gold w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-9 py-4 rounded-xl text-base font-bold shadow-lg relative overflow-hidden"
               >
-                <div className="absolute top-0 inset-x-0 h-px bg-white/40 pointer-events-none" />
                 <BookCheck className="w-5 h-5 shrink-0" />
                 <span>{isBn ? "এখনই ভর্তি হোন" : "Enroll Now"}</span>
                 <ArrowRight className="w-4 h-4 shrink-0" />
@@ -808,7 +807,7 @@ export default function CourseDetailsClient() {
 
               <Link
                 href="/contact"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl text-sm font-semibold text-[#252525] bg-white/90 backdrop-blur-md hover:bg-white border border-stone-200 hover:border-[#B89550]/60 shadow-2xs hover:shadow-xs transition-all duration-200"
+                className="btn-glass w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl text-sm font-semibold text-[#252525]"
               >
                 <span>{isBn ? "যোগাযোগ করুন" : "Contact Admissions"}</span>
               </Link>

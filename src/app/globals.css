@@ -5,11 +5,16 @@
   --foreground: #252525;
   --card: #FFFFFF;
   --accent: #B89550;
+  --accent-light: #C9A86A;
+  --accent-dark: #A07E3C;
   --section: #F1EDE3;
   --border: #E5DFD3;
+  --border-gold: rgba(184, 149, 80, 0.35);
   --muted: #595959;
-  --glass-bg: rgba(255, 255, 255, 0.72);
-  --glass-border: rgba(255, 255, 255, 0.75);
+  --glass-bg: rgba(255, 255, 255, 0.78);
+  --glass-border: rgba(255, 255, 255, 0.85);
+  --glass-dark-bg: rgba(22, 21, 19, 0.85);
+  --glass-dark-border: rgba(255, 255, 255, 0.12);
 }
 
 @theme inline {
@@ -25,76 +30,356 @@ body {
   color: #252525;
   font-family: var(--font-sans), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   min-height: 100vh;
+  overflow-x: hidden;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
 }
 
 .font-brand {
   font-family: var(--font-brand), var(--font-serif), Georgia, serif;
 }
 
-/* Modern Frosted-Glass & Specular Light Utilities (iPhone / iOS inspired) */
+/* ==============================================================================
+   PREMIUM GLASSMORPHISM DESIGN SYSTEM
+   ============================================================================== */
+
+/* Master Glass Panel (for larger containers, sections, dialogs) */
 .glass-panel {
-  background: rgba(255, 255, 255, 0.76);
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(20px) saturate(170%);
+  -webkit-backdrop-filter: blur(20px) saturate(170%);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  box-shadow:
+    0 16px 40px -8px rgba(37, 37, 37, 0.05),
+    0 4px 16px -2px rgba(184, 149, 80, 0.06),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 1);
+  position: relative;
+}
+
+/* Master Glass Card (Interactive with smooth hover lift and gold highlight) */
+.glass-card {
+  background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(16px) saturate(160%);
   -webkit-backdrop-filter: blur(16px) saturate(160%);
   border: 1px solid rgba(255, 255, 255, 0.85);
-  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.04), 0 4px 12px -2px rgba(184, 149, 80, 0.05), inset 0 1px 1px 0 rgba(255, 255, 255, 0.95);
-}
-
-.glass-card {
-  background: rgba(255, 255, 255, 0.75);
-  backdrop-filter: blur(14px) saturate(150%);
-  -webkit-backdrop-filter: blur(14px) saturate(150%);
-  border: 1px solid rgba(255, 255, 255, 0.82);
-  box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.04), 0 2px 6px -1px rgba(184, 149, 80, 0.04), inset 0 1px 1px 0 rgba(255, 255, 255, 0.9);
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow:
+    0 10px 28px -6px rgba(0, 0, 0, 0.04),
+    0 2px 8px -1px rgba(184, 149, 80, 0.05),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.95);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
 }
 
 .glass-card:hover {
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.94);
   border-color: rgba(184, 149, 80, 0.45);
-  box-shadow: 0 16px 36px -6px rgba(184, 149, 80, 0.12), 0 4px 12px -2px rgba(0, 0, 0, 0.05), inset 0 1px 2px 0 rgba(255, 255, 255, 1);
+  box-shadow:
+    0 20px 42px -10px rgba(184, 149, 80, 0.16),
+    0 6px 16px -2px rgba(0, 0, 0, 0.06),
+    inset 0 1px 2px 0 rgba(255, 255, 255, 1);
   transform: translateY(-3px);
 }
 
-.glass-nav {
-  background: rgba(250, 248, 242, 0.8);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.88);
-  box-shadow: 0 10px 32px -4px rgba(0, 0, 0, 0.06), inset 0 1px 1px 0 rgba(255, 255, 255, 0.95);
-}
-
-.glass-pill {
-  background: rgba(255, 255, 255, 0.78);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.85);
-  box-shadow: 0 2px 8px -1px rgba(0, 0, 0, 0.03), inset 0 1px 1px 0 rgba(255, 255, 255, 0.9);
-}
-
-.glass-btn {
+/* Static Glass Card (no hover jump, ideal for stats or dashboard widgets) */
+.glass-card-static {
   background: rgba(255, 255, 255, 0.82);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.9);
-  box-shadow: 0 4px 14px -2px rgba(0, 0, 0, 0.04), inset 0 1px 1px 0 rgba(255, 255, 255, 0.95);
-  transition: all 0.2s ease;
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.88);
+  box-shadow:
+    0 10px 30px -6px rgba(0, 0, 0, 0.04),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.95);
+  position: relative;
 }
 
-.glass-btn:hover {
-  background: rgba(255, 255, 255, 0.96);
-  border-color: rgba(184, 149, 80, 0.5);
-  box-shadow: 0 6px 20px -2px rgba(184, 149, 80, 0.12), inset 0 1px 2px 0 rgba(255, 255, 255, 1);
-  transform: translateY(-1px);
+/* Dark Obsidian Glass (Used in Navbar, Footer, and Premium Callout Cards) */
+.glass-obsidian {
+  background: rgba(22, 21, 19, 0.85);
+  backdrop-filter: blur(24px) saturate(190%);
+  -webkit-backdrop-filter: blur(24px) saturate(190%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow:
+    0 18px 48px -10px rgba(0, 0, 0, 0.45),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.15);
+  position: relative;
 }
 
+/* Glass Pill Badge */
+.glass-pill {
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(12px) saturate(150%);
+  -webkit-backdrop-filter: blur(12px) saturate(150%);
+  border: 1px solid rgba(184, 149, 80, 0.35);
+  box-shadow:
+    0 2px 10px -2px rgba(184, 149, 80, 0.08),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.95);
+  position: relative;
+}
+
+/* Specular Light Reflection at Top Edge */
 .glass-specular-top {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.95) 25%, rgba(255, 255, 255, 0.95) 75%, transparent 100%);
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.95) 25%,
+    rgba(255, 255, 255, 0.95) 75%,
+    transparent 100%
+  );
   pointer-events: none;
 }
 
+.glass-specular-gold {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(184, 149, 80, 0.7) 30%,
+    rgba(201, 168, 106, 0.9) 50%,
+    rgba(184, 149, 80, 0.7) 70%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+/* ==============================================================================
+   ANIMATED BUTTONS & INTERACTIVE FEEDBACK
+   ============================================================================== */
+
+/* Primary Champagne Gold Button */
+.btn-gold {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.75rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  background: linear-gradient(135deg, #B89550 0%, #C9A86A 50%, #A07E3C 100%);
+  border-radius: 0.875rem;
+  box-shadow:
+    0 4px 16px -2px rgba(184, 149, 80, 0.35),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.4);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.btn-gold:hover {
+  background: linear-gradient(135deg, #C29F5B 0%, #D4B478 50%, #AC8947 100%);
+  box-shadow:
+    0 8px 24px -2px rgba(184, 149, 80, 0.45),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.6);
+  transform: translateY(-1.5px);
+}
+
+.btn-gold:active {
+  transform: scale(0.98) translateY(0);
+  box-shadow:
+    0 2px 8px -1px rgba(184, 149, 80, 0.35),
+    inset 0 1px 1px 0 rgba(0, 0, 0, 0.1);
+}
+
+.btn-gold:focus-visible {
+  outline: none;
+  ring: 2px;
+  ring-color: #B89550;
+  ring-offset: 2px;
+}
+
+/* Secondary Frosted Glass Button */
+.btn-glass {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #252525;
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: 0.875rem;
+  box-shadow:
+    0 4px 14px -3px rgba(0, 0, 0, 0.05),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.95);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.btn-glass:hover {
+  background: rgba(255, 255, 255, 0.96);
+  border-color: rgba(184, 149, 80, 0.5);
+  color: #B89550;
+  box-shadow:
+    0 8px 22px -3px rgba(184, 149, 80, 0.18),
+    inset 0 1px 2px 0 rgba(255, 255, 255, 1);
+  transform: translateY(-1.5px);
+}
+
+.btn-glass:active {
+  transform: scale(0.98) translateY(0);
+}
+
+.btn-glass:focus-visible {
+  outline: none;
+  ring: 2px;
+  ring-color: #B89550;
+  ring-offset: 2px;
+}
+
+/* ==============================================================================
+   SMOOTH ANIMATIONS SYSTEM & KEYFRAMES
+   ============================================================================== */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes floatSlow {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-6px) rotate(0.5deg);
+  }
+}
+
+@keyframes pulseGoldGlow {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.75;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes shimmerSweep {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-fade-in-down {
+  animation: fadeInDown 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-float {
+  animation: floatSlow 6s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulseGoldGlow 4s ease-in-out infinite;
+}
+
+/* Stagger animation delay utilities */
+.delay-100 { animation-delay: 100ms; }
+.delay-150 { animation-delay: 150ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-250 { animation-delay: 250ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+.delay-500 { animation-delay: 500ms; }
+
+/* ==============================================================================
+   ISLAMIC DECORATIVE ORNAMENTS & ARABIC CALLIGRAPHY
+   ============================================================================== */
+
+/* Ornamental Gold Divider */
+.ornament-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  width: 100%;
+  max-width: 320px;
+  margin: 1.25rem auto;
+}
+
+.ornament-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(184, 149, 80, 0.65), transparent);
+}
+
+.ornament-diamond {
+  width: 0.5rem;
+  height: 0.5rem;
+  background: #B89550;
+  transform: rotate(45deg);
+  box-shadow: 0 0 8px rgba(184, 149, 80, 0.5);
+}
+
+/* Bismillah Calligraphy Header */
+.bismillah-text {
+  font-family: var(--font-serif), "Amiri", "Traditional Arabic", serif;
+  font-size: 1.35rem;
+  color: #B89550;
+  letter-spacing: 0.05em;
+  opacity: 0.95;
+  user-select: none;
+}
+
+/* Accessibility: Respect Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

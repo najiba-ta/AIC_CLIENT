@@ -1687,10 +1687,10 @@ export default function TeacherApplicationPage() {
             </div>
 
             {/* Submission Actions */}
-            <div className="p-6 rounded-3xl bg-white border border-[#E5DFD3] shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="p-6 rounded-3xl glass-panel flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <Link
                 href="/portal"
-                className="text-xs sm:text-sm font-semibold text-[#595959] hover:text-[#252525] text-center"
+                className="btn-glass px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-[#595959] hover:text-[#252525] text-center"
               >
                 {isBn ? "বাতিল করে মেম্বার পোর্টালে ফিরুন" : "Cancel & Return to Portal"}
               </Link>
@@ -1698,11 +1698,11 @@ export default function TeacherApplicationPage() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="inline-flex items-center justify-center gap-2 px-8 py-3 rounded-2xl text-sm font-bold text-white bg-[#B89550] hover:bg-[#A58342] shadow-md transition-all cursor-pointer disabled:opacity-50"
+                className="btn-gold inline-flex items-center justify-center gap-2 px-8 py-3 rounded-2xl text-sm font-bold shadow-md cursor-pointer disabled:opacity-50"
               >
                 {isSubmitting ? (
                   <>
-                    <Loader2 className="w-4 h-4 animate-spin" />
+                    <Loader2 className="w-4 h-4 animate-spin text-white" />
                     <span>{isBn ? "জমা দেওয়া হচ্ছে..." : "Submitting Application..."}</span>
                   </>
                 ) : (

@@ -220,8 +220,9 @@ export default function OfficialContactSection({ className = "" }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Get Directions to Al Hidayah Islamic Center on Google Maps"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-2xl text-xs sm:text-sm font-bold text-white bg-[#B89550] hover:bg-[#A58342] active:scale-[0.98] shadow-md shadow-[#B89550]/20 hover:shadow-lg transition-all cursor-pointer group"
+                className="w-full sm:w-auto btn-gold !py-3.5 !text-xs sm:!text-sm shadow-md shadow-[#B89550]/25 hover:shadow-xl hover:shadow-[#B89550]/35 group"
               >
+                <div className="absolute top-0 inset-x-0 h-px bg-white/40 pointer-events-none" />
                 <Navigation className="w-4 h-4 shrink-0 transition-transform duration-200 group-hover:rotate-45" />
                 <span>{isBn ? "গুগল ম্যাপে ডিরেকশন দেখুন" : "Get Directions"}</span>
                 <ExternalLink className="w-3.5 h-3.5 opacity-80" />
