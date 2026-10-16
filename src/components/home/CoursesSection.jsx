@@ -276,11 +276,7 @@ export default function CoursesSection() {
               return (
                 <div
                   key={sub.id}
-                  className={`p-5 rounded-2xl relative overflow-hidden flex flex-col justify-between group transition-all duration-300 ${
-                    sub.isFreeHighlight
-                      ? "bg-gradient-to-b from-[#FAF8F2]/95 to-white/95 border-2 border-[#B89550]/60 shadow-md hover:border-[#B89550]"
-                      : "glass-card hover:border-[#B89550]/60"
-                  }`}
+                  className="p-5 rounded-2xl glass-card relative overflow-hidden flex flex-col justify-between group transition-all duration-300 hover:border-[#B89550]/60"
                 >
                   <div className="glass-specular-top" />
                   <div>

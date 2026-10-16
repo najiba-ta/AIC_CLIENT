@@ -608,7 +608,7 @@ export default function CourseDetailsClient() {
       </section>
 
       {/* FREE WITH ENROLLMENT Section */}
-      <section className="relative w-full py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 bg-white dark:bg-[#191814]/80 border-y border-[#E5DFD3] dark:border-[#D6B66D]/20">
+      <section className="relative w-full py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 bg-[#FAF8F2] dark:bg-transparent border-y border-[#E5DFD3] dark:border-[#D6B66D]/20">
         <div className="max-w-7xl mx-auto space-y-12">
           {/* Section Header */}
           <div className="text-center max-w-3xl mx-auto">
@@ -634,7 +634,7 @@ export default function CourseDetailsClient() {
                 <div
                   key={subject.id}
                   id={subject.id}
-                  className="rounded-3xl bg-gradient-to-br from-[#FAF8F2]/90 via-white to-white dark:from-[#1E1C17] dark:via-[#191814] dark:to-[#191814] border-2 border-[#B89550]/60 dark:border-[#D6B66D]/40 shadow-xl p-6 sm:p-8 lg:p-9 relative overflow-hidden flex flex-col justify-between"
+                  className="rounded-3xl glass-panel p-6 sm:p-8 lg:p-9 shadow-lg relative overflow-hidden flex flex-col justify-between"
                 >
                   <div className="glass-specular-top" />
 
@@ -642,7 +642,7 @@ export default function CourseDetailsClient() {
                     {/* Header: Title, Arabic, FREE Badge */}
                     <div className="flex items-start justify-between gap-4 pb-4 border-b border-stone-200/60">
                       <div className="flex items-center gap-3.5">
-                        <div className="w-12 h-12 rounded-2xl bg-[#FAF8F2] text-[#B89550] border border-[#B89550]/40 flex items-center justify-center shadow-xs shrink-0">
+                        <div className="w-12 h-12 rounded-2xl bg-white/90 backdrop-blur-xs text-[#B89550] border border-[#B89550]/30 flex items-center justify-center shadow-2xs shrink-0">
                           <Icon className="w-6 h-6" />
                         </div>
                         <div>
@@ -679,7 +679,7 @@ export default function CourseDetailsClient() {
                     </div>
 
                     {/* What Students Will Learn */}
-                    <div className="p-4 rounded-2xl bg-[#FAF8F2] border border-[#B89550]/30 space-y-1">
+                    <div className="p-4 rounded-2xl bg-white/70 backdrop-blur-xs border border-white/80 space-y-1">
                       <h4 className="text-xs font-bold uppercase tracking-wider text-[#252525] flex items-center gap-1.5">
                         <Sparkles className="w-3.5 h-3.5 text-[#B89550]" />
                         <span>{isBn ? "যা যা শিখবেন" : "What You Will Learn"}</span>
@@ -706,7 +706,7 @@ export default function CourseDetailsClient() {
 
                     {/* Outcome & Suitable For Grid */}
                     <div className="pt-4 border-t border-stone-200/60 grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-                      <div className="p-3 rounded-xl bg-white border border-stone-200">
+                      <div className="p-3 rounded-xl bg-white/60 border border-white/70">
                         <span className="font-bold text-[#252525] block mb-1">
                           {isBn ? "শিক্ষণের ফলাফল ও প্রাপ্তি:" : "Learning Outcome / Benefit:"}
                         </span>
@@ -715,7 +715,7 @@ export default function CourseDetailsClient() {
                         </span>
                       </div>
 
-                      <div className="p-3 rounded-xl bg-white border border-stone-200">
+                      <div className="p-3 rounded-xl bg-white/60 border border-white/70">
                         <span className="font-bold text-[#252525] block mb-1">
                           {isBn ? "যাদের জন্য প্রযোজ্য:" : "Suitable For:"}
                         </span>
