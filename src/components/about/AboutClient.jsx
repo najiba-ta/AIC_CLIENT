@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import {
   Building2,
   Heart,
@@ -237,39 +238,74 @@ export default function AboutClient() {
               </div>
             </div>
 
-            {/* Right Card: Mission & Vision */}
-            <div className="lg:col-span-5 space-y-6">
-              {/* Mission Card */}
-              <div className="p-6 sm:p-8 rounded-2xl sm:rounded-3xl glass-card relative overflow-hidden">
-                <div className="glass-specular-top" />
-                <div className="w-12 h-12 rounded-xl bg-white/90 backdrop-blur-xs border border-[#B89550]/40 flex items-center justify-center text-[#B89550] mb-4 shadow-2xs">
-                  <Compass className="w-6 h-6" />
-                </div>
-                <h3 className="text-xl font-bold text-[#252525] mb-2">
-                  {isBn ? "আমাদের লক্ষ্য ও উদ্দেশ্য (Mission)" : "Our Mission"}
-                </h3>
-                <p className="text-sm text-[#595959] leading-relaxed">
-                  {isBn
-                    ? "একটি পবিত্র ও সুন্দর পরিবেশ নিশ্চিত করা যা নিষ্ঠাবান ঈমানকে সমৃদ্ধ করে, আধুনিক ইসলামী শিক্ষা প্রদান করে, পারিবারিক বন্ধনকে দৃঢ় করে এবং নৈতিক মূল্যবোধে সমাজকে আলোকিত করে।"
-                    : "To provide a welcoming spiritual home that nurtures sincere Islamic faith, fosters rigorous educational development, strengthens family life, and serves our local community with compassion and moral integrity."}
-                </p>
-              </div>
+            {/* Right Card: Building Image Showcase */}
+            <div className="lg:col-span-5 w-full flex justify-center lg:justify-end min-w-0">
+              <div className="w-full max-w-lg lg:max-w-none">
+                <div className="relative rounded-3xl p-3 sm:p-3.5 glass-panel shadow-2xl">
+                  <div className="glass-specular-top" />
+                  <div className="relative overflow-hidden rounded-2xl aspect-[4/4.5] sm:aspect-square lg:aspect-[4/4.5] border border-white/80 group">
+                    <Image
+                      src="/images/center-building.jpg"
+                      alt="Al Hidayah Islamic Center Complex"
+                      fill
+                      priority
+                      className="object-cover object-center group-hover:scale-105 transition-transform duration-700"
+                    />
+                    {/* Subtle Gradient Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent pointer-events-none" />
 
-              {/* Vision Card */}
-              <div className="p-6 sm:p-8 rounded-2xl sm:rounded-3xl glass-card relative overflow-hidden">
-                <div className="glass-specular-top" />
-                <div className="w-12 h-12 rounded-xl bg-white/90 backdrop-blur-xs text-[#B89550] border border-[#E5DFD3] flex items-center justify-center mb-4 shadow-2xs">
-                  <Sparkles className="w-6 h-6" />
+                    {/* Floating Glass Label */}
+                    <div className="absolute bottom-4 inset-x-4 p-3.5 rounded-xl bg-black/60 backdrop-blur-md border border-white/20 text-white flex items-center justify-between">
+                      <div>
+                        <h4 className="text-xs sm:text-sm font-bold text-white">
+                          {isBn ? "আল হিদায়াহ ইসলামিক সেন্টার ভবন" : "Al Hidayah Islamic Center Complex"}
+                        </h4>
+                        <p className="text-[11px] text-[#C9A86A]">
+                          {isBn ? "৪ তলা বিশিষ্ট আধুনিক ইসলামিক মারকায" : "4-Story Modern Islamic Sanctuary"}
+                        </p>
+                      </div>
+                      <span className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-[#B89550] flex items-center justify-center text-white shrink-0 shadow-md">
+                        <Sparkles className="w-4 h-4" />
+                      </span>
+                    </div>
+                  </div>
                 </div>
-                <h3 className="text-xl font-bold text-[#252525] mb-2">
-                  {isBn ? "আমাদের দূরদৃষ্টি (Vision)" : "Our Vision"}
-                </h3>
-                <p className="text-sm text-[#595959] leading-relaxed">
-                  {isBn
-                    ? "আধ্যাত্মিক সজীবতা, বিশুদ্ধ শিক্ষা ও যুব সমাজের যোগ্য নেতৃত্ব তৈরির মাধ্যমে একটি আদর্শ দ্বীনি কেন্দ্রে পরিণত হওয়া—যা ইসলামের শাশ্বত সৌন্দর্যকে সমাজের বুকে তুলে ধরবে।"
-                    : "To be an exemplary Islamic center recognized for spiritual vitality, educational excellence, youth leadership, and positive societal contributions that embody the timeless beauty of Islam."}
-                </p>
               </div>
+            </div>
+          </div>
+
+          {/* Mission & Vision Section */}
+          <div className="mt-14 sm:mt-18 pt-12 border-t border-[#E5DFD3]/70 grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+            {/* Mission Card */}
+            <div className="p-6 sm:p-8 rounded-2xl sm:rounded-3xl glass-card relative overflow-hidden">
+              <div className="glass-specular-top" />
+              <div className="w-12 h-12 rounded-xl bg-white/90 backdrop-blur-xs border border-[#B89550]/40 flex items-center justify-center text-[#B89550] mb-4 shadow-2xs">
+                <Compass className="w-6 h-6" />
+              </div>
+              <h3 className="text-xl font-bold text-[#252525] mb-2">
+                {isBn ? "আমাদের লক্ষ্য ও উদ্দেশ্য (Mission)" : "Our Mission"}
+              </h3>
+              <p className="text-sm text-[#595959] leading-relaxed">
+                {isBn
+                  ? "একটি পবিত্র ও সুন্দর পরিবেশ নিশ্চিত করা যা নিষ্ঠাবান ঈমানকে সমৃদ্ধ করে, আধুনিক ইসলামী শিক্ষা প্রদান করে, পারিবারিক বন্ধনকে দৃঢ় করে এবং নৈতিক মূল্যবোধে সমাজকে আলোকিত করে।"
+                  : "To provide a welcoming spiritual home that nurtures sincere Islamic faith, fosters rigorous educational development, strengthens family life, and serves our local community with compassion and moral integrity."}
+              </p>
+            </div>
+
+            {/* Vision Card */}
+            <div className="p-6 sm:p-8 rounded-2xl sm:rounded-3xl glass-card relative overflow-hidden">
+              <div className="glass-specular-top" />
+              <div className="w-12 h-12 rounded-xl bg-white/90 backdrop-blur-xs text-[#B89550] border border-[#E5DFD3] flex items-center justify-center mb-4 shadow-2xs">
+                <Sparkles className="w-6 h-6" />
+              </div>
+              <h3 className="text-xl font-bold text-[#252525] mb-2">
+                {isBn ? "আমাদের দূরদৃষ্টি (Vision)" : "Our Vision"}
+              </h3>
+              <p className="text-sm text-[#595959] leading-relaxed">
+                {isBn
+                  ? "আধ্যাত্মিক সজীবতা, বিশুদ্ধ শিক্ষা ও যুব সমাজের যোগ্য নেতৃত্ব তৈরির মাধ্যমে একটি আদর্শ দ্বীনি কেন্দ্রে পরিণত হওয়া—যা ইসলামের শাশ্বত সৌন্দর্যকে সমাজের বুকে তুলে ধরবে।"
+                  : "To be an exemplary Islamic center recognized for spiritual vitality, educational excellence, youth leadership, and positive societal contributions that embody the timeless beauty of Islam."}
+              </p>
             </div>
           </div>
         </div>

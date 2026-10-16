@@ -120,24 +120,25 @@ export default function AboutSection() {
             <div className="w-full max-w-md md:max-w-none">
               <div className="relative rounded-3xl p-3 glass-panel shadow-2xl">
                 <div className="glass-specular-top" />
-                <div className="relative overflow-hidden rounded-2xl aspect-[4/3] sm:aspect-[16/10] md:aspect-[4/3] border border-white/80 group">
+                <div className="relative overflow-hidden rounded-2xl aspect-[4/4.5] sm:aspect-square md:aspect-[4/4.5] border border-white/80 group">
                   <Image
-                    src="/images/tasbih-book.jpg"
-                    alt="Sacred Quran and Tasbih"
+                    src="/images/center-building.jpg"
+                    alt="Al Hidayah Islamic Center Complex"
                     fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-700"
+                    priority
+                    className="object-cover object-center group-hover:scale-105 transition-transform duration-700"
                   />
                   {/* Subtle Gradient Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent pointer-events-none" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent pointer-events-none" />
 
                   {/* Floating Glass Label */}
                   <div className="absolute bottom-4 inset-x-4 p-3 rounded-xl bg-black/60 backdrop-blur-md border border-white/20 text-white flex items-center justify-between">
                     <div>
                       <h4 className="text-xs sm:text-sm font-bold text-white">
-                        {isBn ? "আল হিদায়াহ ইসলামিক সেন্টার" : "Al Hidayah Islamic Center"}
+                        {isBn ? "আল হিদায়াহ ইসলামিক সেন্টার ভবন" : "Al Hidayah Islamic Center Complex"}
                       </h4>
                       <p className="text-[11px] text-[#C9A86A]">
-                        {isBn ? "দ্বীন, হেদায়াত ও পবিত্রতার কেন্দ্র" : "A Sanctuary of Faith & Guidance"}
+                        {isBn ? "৪ তলা বিশিষ্ট আধুনিক ইসলামিক মারকায" : "4-Story Modern Islamic Sanctuary"}
                       </p>
                     </div>
                     <span className="w-8 h-8 rounded-lg bg-[#B89550] flex items-center justify-center text-white shrink-0 shadow-md">
