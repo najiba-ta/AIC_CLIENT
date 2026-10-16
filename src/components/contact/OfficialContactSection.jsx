@@ -52,13 +52,13 @@ export default function OfficialContactSection({ className = "" }) {
     {
       id: "email",
       title: isBn ? "ইমেইল করুন" : "Email Us",
-      value: "alhidayahislamiccenter@gmail.com",
-      href: "mailto:alhidayahislamiccenter@gmail.com",
+      value: "alhidayahislamiccenter26@gmail.com",
+      href: "mailto:alhidayahislamiccenter26@gmail.com",
       icon: Mail,
       iconBg: "bg-amber-500/10 text-[#B89550] border-[#B89550]/30",
       actionHint: isBn ? "ইমেইল পাঠান" : "Send an email",
       isExternal: false,
-      ariaLabel: "Email Al Hidayah Islamic Center at alhidayahislamiccenter@gmail.com",
+      ariaLabel: "Email Al Hidayah Islamic Center at alhidayahislamiccenter26@gmail.com",
     },
     {
       id: "phone",

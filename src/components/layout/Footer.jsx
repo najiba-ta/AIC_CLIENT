@@ -124,9 +124,9 @@ export default function Footer() {
 
               {/* Email */}
               <a
-                href="mailto:alhidayahislamiccenter@gmail.com"
+                href="mailto:alhidayahislamiccenter26@gmail.com"
                 className="flex items-center gap-2.5 text-stone-300 hover:text-[#C9A86A] transition-colors group break-all"
-                aria-label="Email Al Hidayah Islamic Center at alhidayahislamiccenter@gmail.com"
+                aria-label="Email Al Hidayah Islamic Center at alhidayahislamiccenter26@gmail.com"
               >
                 <div className="w-8 h-8 rounded-xl bg-white/[0.05] border border-white/10 flex items-center justify-center text-[#C9A86A] group-hover:border-[#B89550]/50 transition-colors shrink-0">
                   <Mail className="w-4 h-4" />
@@ -136,7 +136,7 @@ export default function Footer() {
                     {isBn ? "ইমেইল" : "Email"}
                   </span>
                   <span className="font-semibold text-white group-hover:text-[#C9A86A] transition-colors">
-                    alhidayahislamiccenter@gmail.com
+                    alhidayahislamiccenter26@gmail.com
                   </span>
                 </div>
               </a>
@@ -189,7 +189,7 @@ export default function Footer() {
               </a>
 
               <a
-                href="mailto:alhidayahislamiccenter@gmail.com"
+                href="mailto:alhidayahislamiccenter26@gmail.com"
                 aria-label="Send email to Al Hidayah Islamic Center"
                 className="w-9 h-9 rounded-xl bg-white/[0.05] border border-white/10 hover:border-[#B89550]/60 hover:bg-[#B89550]/15 text-stone-300 hover:text-[#C9A86A] flex items-center justify-center transition-all duration-200"
               >

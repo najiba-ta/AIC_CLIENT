@@ -13,14 +13,18 @@ import {
   Building2,
   Heart,
   User,
+  RefreshCw,
 } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
+
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export default function ContactForm() {
   const { isBn } = useLanguage();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    phone: "",
     subject: "",
     category: "General Inquiry",
     message: "",
@@ -28,36 +32,125 @@ export default function ContactForm() {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
   const [error, setError] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-    setError("");
+    if (error) setError("");
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
-      setError(isBn ? "অনুগ্রহ করে সকল প্রয়োজনীয় তথ্য পূরণ করুন।" : "Please fill out all required fields.");
-      return;
+  const validate = () => {
+    const trimmedName = formData.name.trim();
+    if (!trimmedName || trimmedName.length < 2) {
+      setError(
+        isBn
+          ? "অনুগ্রহ করে আপনার নাম লিখুন (কমপক্ষে ২ অক্ষর)।"
+          : "Please enter your name (at least 2 characters)."
+      );
+      return false;
     }
+
+    const trimmedEmail = formData.email.trim();
+    if (!trimmedEmail || !EMAIL_REGEX.test(trimmedEmail)) {
+      setError(
+        isBn
+          ? "অনুগ্রহ করে একটি সঠিক ইমেইল ঠিকানা প্রদান করুন।"
+          : "Please provide a valid email address."
+      );
+      return false;
+    }
+
+    const trimmedMessage = formData.message.trim();
+    if (!trimmedMessage || trimmedMessage.length < 5) {
+      setError(
+        isBn
+          ? "অনুগ্রহ করে আপনার বার্তার বিস্তারিত লিখুন (কমপক্ষে ৫ অক্ষর)।"
+          : "Please enter your message details (at least 5 characters)."
+      );
+      return false;
+    }
+
+    return true;
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // Prevent duplicate submissions
+    if (isSubmitting) return;
+
+    if (!validate()) return;
 
     setIsSubmitting(true);
     setError("");
 
-    // Simulate clean submission handling
-    setTimeout(() => {
-      setIsSubmitting(false);
+    try {
+      const payload = {
+        name: formData.name.trim(),
+        email: formData.email.trim().toLowerCase(),
+        phone: formData.phone.trim(),
+        subject: formData.subject.trim() || formData.category,
+        category: formData.category,
+        message: formData.message.trim(),
+      };
+
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      let data = null;
+      try {
+        data = await res.json();
+      } catch {
+        data = null;
+      }
+
+      if (!res.ok || !data?.success) {
+        throw new Error(
+          data?.error ||
+            data?.message ||
+            (isBn
+              ? "বার্তা পাঠানো সম্ভব হয়নি। অনুগ্রহ করে কিছুক্ষণ পর আবার চেষ্টা করুন।"
+              : "Failed to send your message. Please try again shortly.")
+        );
+      }
+
+      // Only show success if the server confirmed operation succeeded
       setSubmitted(true);
+      setSuccessMessage(
+        data?.message ||
+          (isBn
+            ? "আল হিদায়াহ ইসলামিক সেন্টারে যোগাযোগ করার জন্য ধন্যবাদ। আমরা আপনার বার্তা পেয়েছি এবং শীঘ্রই উত্তর দেব।"
+            : "Thank you for contacting Al Hidayah Islamic Center. We have received your message and will respond shortly.")
+      );
+
+      // Reset form fields upon confirmed success
       setFormData({
         name: "",
         email: "",
+        phone: "",
         subject: "",
         category: "General Inquiry",
         message: "",
       });
-    }, 800);
+    } catch (err) {
+      console.error("[Contact Form Submit Error]", err);
+      // Preserve visitor's entered message so they can retry without losing their text
+      setError(
+        err?.message ||
+          (isBn
+            ? "বার্তা পাঠানো সম্ভব হয়নি। অনুগ্রহ করে কিছুক্ষণ পর আবার চেষ্টা করুন।"
+            : "Failed to send message. Please check your connection and retry.")
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -77,32 +170,38 @@ export default function ContactForm() {
           </p>
 
           {submitted ? (
-            <div className="p-6 rounded-2xl bg-white/90 backdrop-blur-md border border-[#B89550]/40 text-center space-y-3 shadow-sm">
-              <div className="w-12 h-12 rounded-full bg-[#FAF8F2] border border-[#B89550]/50 text-[#B89550] flex items-center justify-center mx-auto shadow-xs">
-                <CheckCircle2 className="w-6 h-6" />
+            <div className="p-6 sm:p-8 rounded-2xl bg-white/95 backdrop-blur-md border border-[#B89550]/40 text-center space-y-4 shadow-sm animate-in fade-in zoom-in-95 duration-200">
+              <div className="w-14 h-14 rounded-full bg-[#FAF8F2] border-2 border-[#B89550]/50 text-[#B89550] flex items-center justify-center mx-auto shadow-xs">
+                <CheckCircle2 className="w-7 h-7" />
               </div>
-              <h3 className="text-lg font-bold text-[#252525]">
-                {isBn ? "বার্তা সফলভাবে গৃহীত হয়েছে" : "Message Received"}
+              <h3 className="text-xl font-bold text-[#252525]">
+                {isBn ? "বার্তা সফলভাবে পাঠানো হয়েছে" : "Message Submitted Successfully"}
               </h3>
-              <p className="text-xs sm:text-sm text-[#595959] leading-relaxed">
-                {isBn
-                  ? "আল হিদায়াহ ইসলামিক সেন্টারে যোগাযোগ করার জন্য ধন্যবাদ। আমরা আপনার বার্তা পেয়েছি এবং শীঘ্রই উত্তর দেব।"
-                  : "Thank you for contacting Al Hidayah Islamic Center. We have received your message and will get back to you shortly."}
+              <p className="text-xs sm:text-sm text-[#595959] leading-relaxed max-w-md mx-auto">
+                {successMessage}
               </p>
               <button
                 type="button"
-                onClick={() => setSubmitted(false)}
-                className="mt-3 px-5 py-2 rounded-xl bg-[#B89550] hover:bg-[#A58342] text-white text-xs font-semibold cursor-pointer shadow-sm transition-all"
+                onClick={() => {
+                  setSubmitted(false);
+                  setSuccessMessage("");
+                }}
+                className="mt-2 inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-[#B89550] hover:bg-[#A58342] text-white text-xs sm:text-sm font-bold cursor-pointer shadow-sm transition-all"
               >
-                {isBn ? "আরেকটি বার্তা পাঠান" : "Send Another Message"}
+                <span>{isBn ? "আরেকটি বার্তা পাঠান" : "Send Another Message"}</span>
               </button>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
+            <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5" noValidate>
               {error && (
-                <div className="p-3.5 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs sm:text-sm flex items-center gap-2">
-                  <AlertCircle className="w-4 h-4 text-red-600 shrink-0" />
-                  <span>{error}</span>
+                <div className="p-4 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs sm:text-sm flex items-start gap-2.5 shadow-2xs">
+                  <AlertCircle className="w-4 h-4 text-red-600 shrink-0 mt-0.5" />
+                  <div className="flex-1">
+                    <strong className="block font-semibold">
+                      {isBn ? "ত্রুটি:" : "Error:"}
+                    </strong>
+                    <span>{error}</span>
+                  </div>
                 </div>
               )}
 
@@ -125,7 +224,8 @@ export default function ContactForm() {
                       placeholder={isBn ? "উদা: আহমদ খান" : "e.g. Ahmad Khan"}
                       value={formData.name}
                       onChange={handleChange}
-                      className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white/90 backdrop-blur-xs border border-[#D6CEC0] text-sm text-[#252525] placeholder-stone-400 focus:outline-none focus:border-[#B89550] focus:ring-1 focus:ring-[#B89550] transition-all"
+                      disabled={isSubmitting}
+                      className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white/90 backdrop-blur-xs border border-[#D6CEC0] text-sm text-[#252525] placeholder-stone-400 focus:outline-none focus:border-[#B89550] focus:ring-1 focus:ring-[#B89550] transition-all disabled:opacity-60"
                     />
                   </div>
                 </div>
@@ -148,7 +248,8 @@ export default function ContactForm() {
                       placeholder="ahmad@example.com"
                       value={formData.email}
                       onChange={handleChange}
-                      className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white/90 backdrop-blur-xs border border-[#D6CEC0] text-sm text-[#252525] placeholder-stone-400 focus:outline-none focus:border-[#B89550] focus:ring-1 focus:ring-[#B89550] transition-all"
+                      disabled={isSubmitting}
+                      className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white/90 backdrop-blur-xs border border-[#D6CEC0] text-sm text-[#252525] placeholder-stone-400 focus:outline-none focus:border-[#B89550] focus:ring-1 focus:ring-[#B89550] transition-all disabled:opacity-60"
                     />
                   </div>
                 </div>
@@ -168,7 +269,8 @@ export default function ContactForm() {
                     name="category"
                     value={formData.category}
                     onChange={handleChange}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-white/90 backdrop-blur-xs border border-[#D6CEC0] text-sm text-[#252525] focus:outline-none focus:border-[#B89550] focus:ring-1 focus:ring-[#B89550] transition-all"
+                    disabled={isSubmitting}
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-white/90 backdrop-blur-xs border border-[#D6CEC0] text-sm text-[#252525] focus:outline-none focus:border-[#B89550] focus:ring-1 focus:ring-[#B89550] transition-all disabled:opacity-60"
                   >
                     <option value="General Inquiry">{isBn ? "সাধারণ জিজ্ঞাসা" : "General Inquiry"}</option>
                     <option value="Prayer Services">{isBn ? "নামাজ ও জুমার সময়সূচি" : "Prayer & Jumu'ah Services"}</option>
@@ -184,7 +286,7 @@ export default function ContactForm() {
                     htmlFor="subject"
                     className="block text-xs font-semibold uppercase tracking-wider text-[#595959] mb-1.5"
                   >
-                    {isBn ? "বিষয়" : "Subject"}
+                    {isBn ? "বিষয় (ঐচ্ছিক)" : "Subject (Optional)"}
                   </label>
                   <input
                     id="subject"
@@ -193,7 +295,8 @@ export default function ContactForm() {
                     placeholder={isBn ? "সংক্ষিপ্ত বিষয়" : "Brief topic summary"}
                     value={formData.subject}
                     onChange={handleChange}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-white/90 backdrop-blur-xs border border-[#D6CEC0] text-sm text-[#252525] placeholder-stone-400 focus:outline-none focus:border-[#B89550] focus:ring-1 focus:ring-[#B89550] transition-all"
+                    disabled={isSubmitting}
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-white/90 backdrop-blur-xs border border-[#D6CEC0] text-sm text-[#252525] placeholder-stone-400 focus:outline-none focus:border-[#B89550] focus:ring-1 focus:ring-[#B89550] transition-all disabled:opacity-60"
                   />
                 </div>
               </div>
@@ -214,7 +317,8 @@ export default function ContactForm() {
                   placeholder={isBn ? "আপনার বার্তা বা জিজ্ঞাসা এখানে লিখুন..." : "Please write your inquiry or message here..."}
                   value={formData.message}
                   onChange={handleChange}
-                  className="w-full p-3.5 rounded-xl bg-white/90 backdrop-blur-xs border border-[#D6CEC0] text-sm text-[#252525] placeholder-stone-400 focus:outline-none focus:border-[#B89550] focus:ring-1 focus:ring-[#B89550] transition-all resize-none"
+                  disabled={isSubmitting}
+                  className="w-full p-3.5 rounded-xl bg-white/90 backdrop-blur-xs border border-[#D6CEC0] text-sm text-[#252525] placeholder-stone-400 focus:outline-none focus:border-[#B89550] focus:ring-1 focus:ring-[#B89550] transition-all resize-none disabled:opacity-60"
                 />
               </div>
 
@@ -222,10 +326,13 @@ export default function ContactForm() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full flex items-center justify-center gap-2 py-3.5 px-6 rounded-xl bg-[#B89550] hover:bg-[#A58342] text-white font-bold text-sm shadow-md shadow-[#B89550]/20 hover:shadow-lg transition-all cursor-pointer disabled:opacity-50"
+                className="w-full flex items-center justify-center gap-2 py-3.5 px-6 rounded-xl bg-[#B89550] hover:bg-[#A58342] text-white font-bold text-sm shadow-md shadow-[#B89550]/20 hover:shadow-lg transition-all cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
               >
                 {isSubmitting ? (
-                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                  <>
+                    <RefreshCw className="w-4 h-4 animate-spin" />
+                    <span>{isBn ? "বার্তা পাঠানো হচ্ছে..." : "Sending Message..."}</span>
+                  </>
                 ) : (
                   <>
                     <span>{isBn ? "বার্তা পাঠান" : "Submit Message"}</span>
@@ -300,11 +407,11 @@ export default function ContactForm() {
             </a>
 
             <a
-              href="mailto:alhidayahislamiccenter@gmail.com"
+              href="mailto:alhidayahislamiccenter26@gmail.com"
               className="flex items-center gap-2.5 text-[#595959] hover:text-[#B89550] transition-colors break-all"
             >
               <Mail className="w-4 h-4 text-[#B89550] shrink-0" />
-              <span className="font-semibold text-[#252525]">alhidayahislamiccenter@gmail.com</span>
+              <span className="font-semibold text-[#252525]">alhidayahislamiccenter26@gmail.com</span>
             </a>
 
             <div className="flex items-start gap-2.5 text-[#595959]">
