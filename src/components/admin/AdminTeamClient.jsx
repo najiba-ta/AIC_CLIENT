@@ -246,6 +246,7 @@ export default function AdminTeamClient({ initialAdminEmail = "Admin" }) {
 
     try {
       const uploadBody = new FormData();
+      uploadBody.append("file", file);
       uploadBody.append("image", file);
 
       const res = await fetch("/api/admin/upload-image", {

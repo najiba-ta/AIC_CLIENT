@@ -16,7 +16,7 @@ export async function POST(request) {
     }
 
     const formData = await request.formData();
-    const file = formData.get("file");
+    const file = formData.get("file") || formData.get("image");
 
     if (!file || typeof file === "string") {
       return NextResponse.json(
@@ -45,34 +45,71 @@ export async function POST(request) {
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
-    // Ensure target directory exists
-    const uploadDir = path.join(process.cwd(), "public", "images", "team");
-    if (!fs.existsSync(uploadDir)) {
-      fs.mkdirSync(uploadDir, { recursive: true });
+    // Option 1: If IMGBB_API_KEY is configured, upload directly to cloud (free permanent hosting)
+    const imgbbKey = process.env.IMGBB_API_KEY;
+    if (imgbbKey) {
+      try {
+        const imgbbFormData = new FormData();
+        imgbbFormData.append("image", buffer.toString("base64"));
+        const imgbbRes = await fetch(`https://api.imgbb.com/1/upload?key=${imgbbKey}`, {
+          method: "POST",
+          body: imgbbFormData,
+        });
+        const imgbbData = await imgbbRes.json();
+        if (imgbbData?.success && imgbbData?.data?.url) {
+          return NextResponse.json({
+            success: true,
+            message: "Profile image uploaded to cloud successfully.",
+            url: imgbbData.data.url,
+          });
+        }
+      } catch (cloudErr) {
+        console.error("[ImgBB Upload Exception]:", cloudErr);
+      }
     }
 
-    // Sanitize extension and generate unique filename
-    const ext = file.name ? path.extname(file.name).toLowerCase() || ".jpg" : ".jpg";
-    const baseName = path.basename(file.name || "profile", ext)
-      .toLowerCase()
-      .replace(/[^a-z0-9_-]/g, "_")
-      .slice(0, 30);
-    const fileName = `${Date.now()}-${baseName}${ext}`;
-    const filePath = path.join(uploadDir, fileName);
+    // Option 2: Local storage (works in local development)
+    try {
+      const uploadDir = path.join(process.cwd(), "public", "images", "team");
+      if (!fs.existsSync(uploadDir)) {
+        fs.mkdirSync(uploadDir, { recursive: true });
+      }
 
-    fs.writeFileSync(filePath, buffer);
+      const ext = file.name ? path.extname(file.name).toLowerCase() || ".jpg" : ".jpg";
+      const baseName = path.basename(file.name || "profile", ext)
+        .toLowerCase()
+        .replace(/[^a-z0-9_-]/g, "_")
+        .slice(0, 30);
+      const fileName = `${Date.now()}-${baseName}${ext}`;
+      const filePath = path.join(uploadDir, fileName);
 
-    const publicUrl = `/images/team/${fileName}`;
+      fs.writeFileSync(filePath, buffer);
 
-    return NextResponse.json({
-      success: true,
-      message: "Profile image uploaded successfully.",
-      url: publicUrl,
-    });
+      const publicUrl = `/images/team/${fileName}`;
+
+      return NextResponse.json({
+        success: true,
+        message: "Profile image uploaded successfully.",
+        url: publicUrl,
+      });
+    } catch (fsErr) {
+      console.warn("[Local File System Write Failed]:", fsErr?.message);
+      if (fsErr?.code === "EROFS" || fsErr?.message?.includes("read-only")) {
+        return NextResponse.json(
+          {
+            success: false,
+            error:
+              "Vercel ক্লাউড হোস্টিংয়ে লোকাল ডিস্কে ফাইল সেভ করা যায় না (Read-only filesystem)। অনুগ্রহ করে ছবির সরাসরি লিংক (Direct Image URL যেমন ImgBB / PostImages লিংক) পেস্ট করুন অথবা .env-এ IMGBB_API_KEY যুক্ত করুন।",
+          },
+          { status: 400 }
+        );
+      }
+      throw fsErr;
+    }
   } catch (error) {
     console.error("[Upload Image Error]:", error);
     return NextResponse.json(
-      { success: false, error: "Failed to process image upload." },
+      { success: false, error: error?.message || "Failed to process image upload." },
       { status: 500 }
     );
   }
