@@ -15,13 +15,13 @@ export default function Navbar() {
   const { language, setLanguage, isBn } = useLanguage();
 
   const navLinks = [
-    { name: isBn ? "পরিচিতি" : "About", href: "/about" },
-    { name: isBn ? "নেতৃত্ব ও টিম" : "Our Team", href: "/our-team" },
-    { name: isBn ? "শিক্ষা কার্যক্রম" : "Courses", href: "/courses" },
-    { name: isBn ? "প্রোগ্রামসমূহ" : "Programs", href: "/programs" },
-    { name: isBn ? "নামাজের সময়সূচি" : "Prayer Times", href: "/prayer-times" },
-    { name: isBn ? "ইভেন্টস" : "Events", href: "/events" },
-    { name: isBn ? "যোগাযোগ" : "Contact", href: "/contact" },
+    { name: isBn ? "পরিচিতি" : "About", fullName: isBn ? "পরিচিতি" : "About", href: "/about" },
+    { name: isBn ? "টিম" : "Team", fullName: isBn ? "নেতৃত্ব ও টিম" : "Our Team", href: "/our-team" },
+    { name: isBn ? "কোর্স" : "Courses", fullName: isBn ? "শিক্ষা কার্যক্রম" : "Courses", href: "/courses" },
+    { name: isBn ? "প্রোগ্রাম" : "Programs", fullName: isBn ? "প্রোগ্রামসমূহ" : "Programs", href: "/programs" },
+    { name: isBn ? "নামাজ" : "Prayer", fullName: isBn ? "নামাজের সময়সূচি" : "Prayer Times", href: "/prayer-times" },
+    { name: isBn ? "ইভেন্ট" : "Events", fullName: isBn ? "ইভেন্টস" : "Events", href: "/events" },
+    { name: isBn ? "যোগাযোগ" : "Contact", fullName: isBn ? "যোগাযোগ" : "Contact", href: "/contact" },
   ];
 
   // Fetch current user session (Student/Teacher)
@@ -69,7 +69,7 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 w-full px-2.5 sm:px-4 lg:px-6 pt-2.5 sm:pt-3 pb-2 transition-all duration-300">
       <div
-        className={`max-w-[1400px] w-full mx-auto rounded-2xl sm:rounded-3xl glass-navbar transition-all duration-300 px-3.5 sm:px-5 lg:px-6 xl:px-8 relative ${
+        className={`max-w-[1400px] w-full mx-auto rounded-2xl sm:rounded-3xl glass-navbar transition-all duration-300 px-3.5 sm:px-5 lg:px-6 xl:px-7 relative ${
           isScrolled
             ? "!border-[#B89550]/40 shadow-2xl shadow-black/60 py-0.5"
             : "border-white/20 shadow-xl shadow-black/40"
@@ -78,10 +78,10 @@ export default function Navbar() {
         {/* Specular Light Reflection at the top edge */}
         <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[#C9A86A]/50 to-transparent pointer-events-none rounded-t-2xl sm:rounded-t-3xl" />
 
-        <div className="flex items-center justify-between h-16 sm:h-18 gap-3 lg:gap-4 xl:gap-6">
+        <div className="flex items-center justify-between h-16 sm:h-18 gap-2 xl:gap-3 2xl:gap-4">
           
-          {/* 1. LEFT SIDE: Logo and Brand Name */}
-          <div className="flex items-center shrink-0 min-w-0 mr-1 sm:mr-2">
+          {/* 1. LEFT SIDE: Logo and Brand Name (Compact on laptop, full on large desktop) */}
+          <div className="flex items-center shrink-0 min-w-0 pr-1 lg:pr-2">
             <Link
               href="/"
               onClick={closeMenu}
@@ -99,28 +99,33 @@ export default function Navbar() {
                 />
               </div>
 
-              {/* Brand Title */}
+              {/* Brand Title: Responsive to guarantee generous spacing */}
               <span className="font-brand text-xs sm:text-sm xl:text-base font-bold tracking-wide text-white group-hover:text-[#C9A86A] transition-colors duration-200 truncate whitespace-nowrap">
-                {isBn ? "আল হিদায়াহ ইসলামিক সেন্টার" : "Al Hidayah Islamic Center"}
+                {isBn ? (
+                  <>আল হিদায়াহ <span className="hidden 2xl:inline">ইসলামিক </span>সেন্টার</>
+                ) : (
+                  <>Al Hidayah <span className="hidden 2xl:inline">Islamic </span>Center</>
+                )}
               </span>
             </Link>
           </div>
 
-          {/* 2. MIDDLE: Navigation Links + Highlighted Donate Button with generous spacing */}
-          <nav className="hidden lg:flex items-center justify-center gap-1.5 xl:gap-2.5 2xl:gap-3.5 flex-1 min-w-0 mx-2 xl:mx-4">
+          {/* 2. MIDDLE: Clean Page Navigation Links (No donate here; ample space for all links) */}
+          <nav className="hidden lg:flex items-center justify-center gap-1 xl:gap-2 2xl:gap-3 flex-1 min-w-0 px-1 xl:px-2">
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
               return (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`px-2.5 xl:px-3 py-1.5 text-[12px] xl:text-[13px] font-medium rounded-xl transition-all duration-200 relative whitespace-nowrap shrink-0 tracking-normal group ${
+                  className={`px-2 xl:px-2.5 2xl:px-3 py-1.5 text-[12px] xl:text-[13px] font-medium rounded-xl transition-all duration-200 relative whitespace-nowrap shrink-0 tracking-normal group ${
                     isActive
                       ? "text-[#C9A86A] bg-white/[0.12] border border-[#B89550]/40 font-semibold shadow-inner"
                       : "text-stone-300 hover:text-white hover:bg-white/[0.08]"
                   }`}
                 >
-                  <span className="relative z-10">{link.name}</span>
+                  <span className="relative z-10 hidden 2xl:inline">{link.fullName}</span>
+                  <span className="relative z-10 inline 2xl:hidden">{link.name}</span>
                   {isActive ? (
                     <span className="absolute bottom-1 left-2.5 right-2.5 h-0.5 bg-gradient-to-r from-[#B89550] via-[#C9A86A] to-[#B89550] rounded-full shadow-xs shadow-[#B89550]" />
                   ) : (
@@ -129,30 +134,16 @@ export default function Navbar() {
                 </Link>
               );
             })}
-
-            {/* Highlighted Donate Button with generous spacing after links */}
-            <Link
-              href="/#donate"
-              className="inline-flex items-center justify-center gap-1.5 px-3.5 xl:px-4 py-1.5 text-xs xl:text-sm font-bold text-white bg-gradient-to-r from-[#B89550] via-[#C9A86A] to-[#A07E3C] hover:from-[#C29F5B] hover:to-[#AC8947] active:scale-[0.97] rounded-full shadow-md shadow-[#B89550]/30 hover:shadow-lg hover:shadow-[#B89550]/40 transition-all duration-200 whitespace-nowrap ml-3 xl:ml-5 shrink-0 relative overflow-hidden group"
-            >
-              <div className="absolute top-0 inset-x-0 h-px bg-white/40 pointer-events-none" />
-              <div className="absolute inset-0 bg-white/15 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-              <Heart className="w-3.5 h-3.5 fill-white group-hover:scale-110 transition-transform duration-200" />
-              <span>{isBn ? "দান করুন" : "Donate"}</span>
-            </Link>
           </nav>
 
-          {/* 3. RIGHT SIDE: GLOBAL LANGUAGE TOGGLE (EN / বাং) + Auth Buttons */}
-          <div className="hidden lg:flex items-center justify-end gap-3 xl:gap-4 shrink-0">
+          {/* 3. RIGHT SIDE: Language Toggle (EN / বাং) + Donate Button + Auth Buttons with clear spacing */}
+          <div className="hidden lg:flex items-center justify-end gap-2 xl:gap-2.5 2xl:gap-3 shrink-0 pl-1 lg:pl-2">
             {/* GLOBAL LANGUAGE TOGGLE SWITCH: EN / বাং */}
-            <div className="inline-flex items-center p-1 rounded-full bg-stone-900/80 backdrop-blur-md border border-white/15 shadow-inner shrink-0 relative">
-              <div className="pl-1.5 pr-1 hidden xl:flex items-center text-stone-400">
-                <Globe className="w-3.5 h-3.5 text-[#C9A86A]" />
-              </div>
+            <div className="inline-flex items-center p-0.5 rounded-full bg-stone-900/80 backdrop-blur-md border border-white/15 shadow-inner shrink-0 relative">
               <button
                 type="button"
                 onClick={() => setLanguage("en")}
-                className={`relative z-10 px-3 py-1 rounded-full text-xs font-bold transition-all duration-200 cursor-pointer whitespace-nowrap ${
+                className={`relative z-10 px-2.5 xl:px-3 py-1 rounded-full text-xs font-bold transition-all duration-200 cursor-pointer whitespace-nowrap ${
                   language === "en"
                     ? "bg-gradient-to-r from-[#B89550] to-[#C9A86A] text-white shadow-xs"
                     : "text-stone-300 hover:text-white hover:bg-white/[0.08]"
@@ -165,7 +156,7 @@ export default function Navbar() {
               <button
                 type="button"
                 onClick={() => setLanguage("bn")}
-                className={`relative z-10 px-3 py-1 rounded-full text-xs font-bold transition-all duration-200 cursor-pointer whitespace-nowrap ${
+                className={`relative z-10 px-2.5 xl:px-3 py-1 rounded-full text-xs font-bold transition-all duration-200 cursor-pointer whitespace-nowrap ${
                   language === "bn"
                     ? "bg-gradient-to-r from-[#B89550] to-[#C9A86A] text-white shadow-xs"
                     : "text-stone-300 hover:text-white hover:bg-white/[0.08]"
@@ -177,11 +168,22 @@ export default function Navbar() {
               </button>
             </div>
 
+            {/* Donate CTA Button — placed cleanly in right actions */}
+            <Link
+              href="/#donate"
+              className="inline-flex items-center justify-center gap-1.5 px-3 xl:px-4 py-1.5 text-xs xl:text-sm font-bold text-white bg-gradient-to-r from-[#B89550] via-[#C9A86A] to-[#A07E3C] hover:from-[#C29F5B] hover:to-[#AC8947] active:scale-[0.97] rounded-full shadow-md shadow-[#B89550]/30 hover:shadow-lg hover:shadow-[#B89550]/40 transition-all duration-200 whitespace-nowrap shrink-0 relative overflow-hidden group"
+            >
+              <div className="absolute top-0 inset-x-0 h-px bg-white/40 pointer-events-none" />
+              <div className="absolute inset-0 bg-white/15 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+              <Heart className="w-3.5 h-3.5 fill-white group-hover:scale-110 transition-transform duration-200" />
+              <span>{isBn ? "দান করুন" : "Donate"}</span>
+            </Link>
+
             {currentUser ? (
               // Logged-in User Profile Link
               <Link
                 href="/portal"
-                className="inline-flex items-center gap-2 px-3 py-1.5 text-xs xl:text-sm font-semibold text-stone-200 hover:text-white bg-white/[0.1] hover:bg-white/[0.16] border border-white/20 hover:border-[#B89550]/50 rounded-full shadow-2xs transition-all duration-200 shrink-0 active:scale-[0.98]"
+                className="inline-flex items-center gap-1.5 xl:gap-2 px-2.5 xl:px-3 py-1.5 text-xs xl:text-sm font-semibold text-stone-200 hover:text-white bg-white/[0.1] hover:bg-white/[0.16] border border-white/20 hover:border-[#B89550]/50 rounded-full shadow-2xs transition-all duration-200 shrink-0 active:scale-[0.98]"
               >
                 {currentUser.role === "teacher" ? (
                   <BookOpen className="w-3.5 h-3.5 text-[#C9A86A]" />
@@ -196,11 +198,11 @@ export default function Navbar() {
                 )}
               </Link>
             ) : (
-              // Sign In & Sign Up Right Buttons with clear spacing
-              <div className="flex items-center gap-2 xl:gap-3 shrink-0">
+              // Sign In & Sign Up Right Buttons with clean spacing
+              <div className="flex items-center gap-1.5 xl:gap-2 shrink-0">
                 <Link
                   href="/portal/login"
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs xl:text-sm font-semibold text-stone-200 hover:text-white hover:bg-white/[0.1] rounded-xl transition-all duration-200 whitespace-nowrap shrink-0 active:scale-[0.98]"
+                  className="inline-flex items-center gap-1 px-2.5 xl:px-3 py-1.5 text-xs xl:text-sm font-semibold text-stone-200 hover:text-white hover:bg-white/[0.1] rounded-xl transition-all duration-200 whitespace-nowrap shrink-0 active:scale-[0.98]"
                 >
                   <LogIn className="w-3.5 h-3.5 text-[#C9A86A]" />
                   <span>{isBn ? "লগইন" : "Sign In"}</span>
@@ -208,7 +210,7 @@ export default function Navbar() {
 
                 <Link
                   href="/portal/register"
-                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs xl:text-sm font-bold text-white hover:text-white bg-[#B89550]/30 hover:bg-[#B89550]/50 border border-[#B89550]/60 hover:border-[#B89550] rounded-xl shadow-xs transition-all duration-200 whitespace-nowrap shrink-0 active:scale-[0.98]"
+                  className="inline-flex items-center gap-1 px-3 xl:px-3.5 py-1.5 text-xs xl:text-sm font-bold text-white hover:text-white bg-[#B89550]/30 hover:bg-[#B89550]/50 border border-[#B89550]/60 hover:border-[#B89550] rounded-xl shadow-xs transition-all duration-200 whitespace-nowrap shrink-0 active:scale-[0.98]"
                 >
                   <User className="w-3.5 h-3.5 text-[#C9A86A]" />
                   <span>{isBn ? "নিবন্ধন" : "Sign Up"}</span>
