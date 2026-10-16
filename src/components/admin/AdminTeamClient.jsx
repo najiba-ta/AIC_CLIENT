@@ -95,14 +95,19 @@ export default function AdminTeamClient({ initialAdminEmail = "Admin" }) {
         credentials: "include",
         cache: "no-store",
       });
-      const data = await res.json();
+      let data = null;
+      try {
+        data = await res.json();
+      } catch {
+        data = null;
+      }
 
       if (!res.ok) {
         if (res.status === 401) {
           router.replace("/admin/login");
           return;
         }
-        throw new Error(data?.error || "Failed to load team members from server.");
+        throw new Error(data?.error || data?.message || `Server responded with status ${res.status}`);
       }
 
       const list = Array.isArray(data)
@@ -335,9 +340,14 @@ export default function AdminTeamClient({ initialAdminEmail = "Admin" }) {
         });
       }
 
-      const data = await res.json();
+      let data = null;
+      try {
+        data = await res.json();
+      } catch {
+        data = null;
+      }
       if (!res.ok) {
-        throw new Error(data?.error || data?.message || "Operation failed.");
+        throw new Error(data?.error || data?.message || `Operation failed with status ${res.status}`);
       }
 
       setFeedback({
