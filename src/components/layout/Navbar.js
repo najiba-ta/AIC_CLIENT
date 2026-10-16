@@ -99,13 +99,9 @@ export default function Navbar() {
                 />
               </div>
 
-              {/* Brand Title: Responsive to guarantee generous spacing */}
-              <span className="font-brand text-xs sm:text-sm xl:text-base font-bold tracking-wide text-white group-hover:text-[#C9A86A] transition-colors duration-200 truncate whitespace-nowrap">
-                {isBn ? (
-                  <>আল হিদায়াহ <span className="hidden 2xl:inline">ইসলামিক </span>সেন্টার</>
-                ) : (
-                  <>Al Hidayah <span className="hidden 2xl:inline">Islamic </span>Center</>
-                )}
+              {/* Brand Title: Always full official name */}
+              <span className="font-brand text-xs sm:text-sm xl:text-[15px] 2xl:text-base font-bold tracking-wide text-white group-hover:text-[#C9A86A] transition-colors duration-200 truncate whitespace-nowrap">
+                {isBn ? "আল হিদায়াহ ইসলামিক সেন্টার" : "Al Hidayah Islamic Center"}
               </span>
             </Link>
           </div>
