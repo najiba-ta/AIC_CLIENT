@@ -9,11 +9,11 @@ export default function Hero() {
   const { isBn } = useLanguage();
 
   return (
-    <section className="relative w-full bg-[#FAF8F2] text-[#252525] py-16 sm:py-20 md:py-24 lg:py-28 px-4 sm:px-6 lg:px-8 overflow-hidden">
+    <section className="relative w-full bg-[#FAF8F2] dark:bg-transparent text-[#252525] dark:text-[#F5F1E8] py-16 sm:py-20 md:py-24 lg:py-28 px-4 sm:px-6 lg:px-8 overflow-hidden">
       {/* Background Layers: Sacred Quran & Rehal Warm Lighting with Ambient Glow */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden select-none" aria-hidden="true">
-        {/* Sacred Quran Rehal Background Image with Soft Warm Blur */}
-        <div className="absolute inset-0 opacity-25 filter blur-[2px] scale-[1.03]">
+        {/* Sacred Quran Rehal Background Image with Soft Warm Blur (in light mode only, dark mode uses cinematic layout background) */}
+        <div className="absolute inset-0 opacity-25 dark:opacity-0 filter blur-[2px] scale-[1.03] transition-opacity duration-300">
           <Image
             src="/images/quran-rehal.jpg"
             alt="Holy Quran on Carved Rehal"
@@ -25,7 +25,7 @@ export default function Hero() {
 
         {/* Soft Warm Radial Glow */}
         <div
-          className="absolute -top-32 left-1/2 -translate-x-1/2 w-[700px] sm:w-[1000px] h-[450px] sm:h-[550px] rounded-full opacity-70 blur-3xl pointer-events-none"
+          className="absolute -top-32 left-1/2 -translate-x-1/2 w-[700px] sm:w-[1000px] h-[450px] sm:h-[550px] rounded-full opacity-70 dark:opacity-20 blur-3xl pointer-events-none"
           style={{
             background:
               "radial-gradient(circle, rgba(245, 239, 227, 0.9) 0%, rgba(184, 149, 80, 0.16) 45%, transparent 72%)",
@@ -158,10 +158,10 @@ export default function Hero() {
           {/* Tertiary Glass CTA: Islamic Education */}
           <Link
             href="/courses"
-            className="w-full sm:w-auto min-h-[48px] inline-flex items-center justify-center gap-2 px-6 sm:px-7 py-3.5 text-sm sm:text-base font-semibold text-[#595959] bg-white/70 backdrop-blur-md hover:bg-white/95 border border-white/80 hover:border-[#B89550]/40 hover:text-[#252525] active:scale-[0.98] rounded-xl shadow-xs transition-all duration-200 relative overflow-hidden"
+            className="w-full sm:w-auto min-h-[48px] btn-glass"
           >
             <div className="glass-specular-top" />
-            <BookOpen className="w-4 h-4 shrink-0 text-[#B89550]" />
+            <BookOpen className="w-4 h-4 shrink-0 text-[#B89550] dark:text-[#D6B66D]" />
             <span>{isBn ? "শিক্ষা কার্যক্রম" : "Islamic Education"}</span>
           </Link>
         </div>

@@ -4,8 +4,9 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
-import { Heart, Menu, X, User, GraduationCap, BookOpen, LogIn, Globe, Sparkles } from "lucide-react";
+import { Heart, Menu, X, User, GraduationCap, BookOpen, LogIn, Globe, Sparkles, Sun, Moon } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
+import { useTheme } from "@/context/ThemeContext";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,6 +14,7 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
   const { language, setLanguage, isBn } = useLanguage();
+  const { theme, toggleTheme, isDark } = useTheme();
 
   const navLinks = [
     { name: isBn ? "পরিচিতি" : "About", fullName: isBn ? "পরিচিতি" : "About", href: "/about" },
@@ -132,7 +134,7 @@ export default function Navbar() {
             })}
           </nav>
 
-          {/* 3. RIGHT SIDE: Language Toggle (EN / বাং) + Donate Button + Auth Buttons with clear spacing */}
+          {/* 3. RIGHT SIDE: Language Toggle (EN / বাং) + Theme Toggle + Donate Button + Auth Buttons */}
           <div className="hidden lg:flex items-center justify-end gap-2 xl:gap-2.5 2xl:gap-3 shrink-0 pl-1 lg:pl-2">
             {/* GLOBAL LANGUAGE TOGGLE SWITCH: EN / বাং */}
             <div className="inline-flex items-center p-0.5 rounded-full bg-stone-900/80 backdrop-blur-md border border-white/15 shadow-inner shrink-0 relative">
@@ -163,6 +165,21 @@ export default function Navbar() {
                 বাং
               </button>
             </div>
+
+            {/* THEME TOGGLE: Light (Sun) / Dark (Moon) */}
+            <button
+              type="button"
+              onClick={toggleTheme}
+              className="inline-flex items-center justify-center w-8 h-8 xl:w-8.5 xl:h-8.5 rounded-full bg-stone-900/80 hover:bg-stone-800 backdrop-blur-md border border-white/15 hover:border-[#D6B66D]/50 text-stone-300 hover:text-[#D6B66D] shadow-inner transition-all duration-200 cursor-pointer shrink-0 active:scale-95"
+              title={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
+              aria-label={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
+            >
+              {isDark ? (
+                <Sun className="w-4 h-4 text-[#D6B66D] transition-transform duration-300 rotate-0 hover:rotate-45" />
+              ) : (
+                <Moon className="w-4 h-4 text-stone-200 transition-transform duration-300 rotate-0 hover:-rotate-12" />
+              )}
+            </button>
 
             {/* Donate CTA Button — placed cleanly in right actions */}
             <Link
@@ -215,8 +232,8 @@ export default function Navbar() {
             )}
           </div>
 
-          {/* 4. MOBILE / TABLET CONTROLS (Compact Language Toggle + Menu) */}
-          <div className="flex lg:hidden items-center justify-end gap-2 shrink-0">
+          {/* 4. MOBILE / TABLET CONTROLS (Compact Language Toggle + Theme Toggle + Menu) */}
+          <div className="flex lg:hidden items-center justify-end gap-1.5 sm:gap-2 shrink-0">
             {/* Compact Language Toggle on Mobile Top Bar */}
             <div className="inline-flex items-center p-0.5 rounded-full bg-stone-900/95 border border-white/10 shadow-inner">
               <button
@@ -244,6 +261,21 @@ export default function Navbar() {
                 বাং
               </button>
             </div>
+
+            {/* Mobile Theme Toggle Button */}
+            <button
+              type="button"
+              onClick={toggleTheme}
+              className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-stone-900/95 border border-white/10 text-stone-300 active:scale-90"
+              title={isDark ? "Light Mode" : "Dark Mode"}
+              aria-label={isDark ? "Light Mode" : "Dark Mode"}
+            >
+              {isDark ? (
+                <Sun className="w-3.5 h-3.5 text-[#D6B66D]" />
+              ) : (
+                <Moon className="w-3.5 h-3.5 text-stone-200" />
+              )}
+            </button>
 
             <button
               type="button"
@@ -299,6 +331,23 @@ export default function Navbar() {
                 বাং
               </button>
             </div>
+          </div>
+
+          {/* Theme Mode Switcher in Mobile Drawer */}
+          <div className="flex items-center justify-between pb-3 mb-2 border-b border-stone-800">
+            <span className="text-xs font-semibold text-stone-300 flex items-center gap-1.5">
+              {isDark ? <Moon className="w-3.5 h-3.5 text-[#D6B66D]" /> : <Sun className="w-3.5 h-3.5 text-[#D6B66D]" />}
+              <span>{isBn ? "থিম মোড" : "Theme Mode"}</span>
+            </span>
+
+            <button
+              type="button"
+              onClick={toggleTheme}
+              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-stone-900/80 border border-white/15 text-xs font-bold text-[#D6B66D] active:scale-95 shadow-xs cursor-pointer"
+            >
+              {isDark ? <Sun className="w-3.5 h-3.5" /> : <Moon className="w-3.5 h-3.5" />}
+              <span>{isDark ? (isBn ? "লাইট মোড" : "Light Mode") : (isBn ? "ডার্ক মোড" : "Dark Mode")}</span>
+            </button>
           </div>
 
           <nav className="flex flex-col space-y-1">

@@ -38,7 +38,7 @@ export default function Footer() {
     "https://www.google.com/maps/search/?api=1&query=Orvylle+Dr%2C+Warren%2C+MI%2C+United+States%2C+Michigan";
 
   return (
-    <footer className="w-full bg-[#141311] text-stone-200 border-t border-[#2A261F] relative overflow-hidden mt-auto">
+    <footer className="w-full bg-[#141311] dark:bg-[#11110F]/85 text-stone-200 border-t border-[#2A261F] dark:border-[#D6B66D]/20 relative overflow-hidden mt-auto backdrop-blur-md">
       {/* Ambient Radial Accent & Top Specular Line */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden select-none" aria-hidden="true">
         <div

@@ -436,7 +436,7 @@ export default function ActivitiesSection() {
                       className={`w-full inline-flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl text-xs font-bold transition-all duration-200 active:scale-[0.98] relative overflow-hidden ${
                         cat.buttonIsPrimary
                           ? "btn-gold !py-2.5 !text-xs"
-                          : "btn-glass !py-2.5 !text-xs !bg-white/70 hover:!bg-white"
+                          : "btn-glass !py-2.5 !text-xs"
                       }`}
                     >
                       {!cat.buttonIsPrimary && <div className="glass-specular-top" />}

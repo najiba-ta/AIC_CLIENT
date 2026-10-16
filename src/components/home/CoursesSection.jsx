@@ -155,13 +155,13 @@ export default function CoursesSection() {
   return (
     <section
       id="education"
-      className="relative w-full bg-[#FAF8F2] text-[#252525] py-16 sm:py-20 lg:py-28 px-4 sm:px-6 lg:px-8 border-t border-[#E5DFD3] overflow-hidden"
+      className="relative w-full bg-[#FAF8F2] dark:bg-transparent text-[#252525] dark:text-[#F5F1E8] py-16 sm:py-20 lg:py-28 px-4 sm:px-6 lg:px-8 border-t border-[#E5DFD3] dark:border-[#D6B66D]/20 overflow-hidden"
     >
       {/* Target anchor compatibility for #courses and #education */}
       <span id="courses" className="absolute -top-24" />
 
-      {/* Background Layers: Madrasah/Quran Background Texture with Soft White Overlay */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden select-none" aria-hidden="true">
+      {/* Background Layers: Madrasah/Quran Background Texture with Soft White Overlay (hidden in dark mode) */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden select-none dark:hidden" aria-hidden="true">
         <div className="absolute inset-0 opacity-45 filter blur-[0.75px] scale-[1.01]">
           <Image
             src="/images/quran-madrasah-bg.jpg"

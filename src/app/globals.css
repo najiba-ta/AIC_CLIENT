@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
   --background: #FAF8F2;
   --foreground: #252525;
@@ -15,6 +17,23 @@
   --glass-border: rgba(255, 255, 255, 0.85);
   --glass-dark-bg: rgba(22, 21, 19, 0.85);
   --glass-dark-border: rgba(255, 255, 255, 0.12);
+}
+
+.dark {
+  --background: #11110F;
+  --foreground: #F5F1E8;
+  --card: #191814;
+  --accent: #D6B66D;
+  --accent-light: #E5CA8F;
+  --accent-dark: #BFA055;
+  --section: #191814;
+  --border: rgba(214, 182, 109, 0.22);
+  --border-gold: rgba(214, 182, 109, 0.3);
+  --muted: #C2BBAE;
+  --glass-bg: rgba(25, 24, 20, 0.65);
+  --glass-border: rgba(214, 182, 109, 0.22);
+  --glass-dark-bg: rgba(17, 17, 15, 0.85);
+  --glass-dark-border: rgba(214, 182, 109, 0.25);
 }
 
 @theme inline {
@@ -33,6 +52,12 @@ body {
   overflow-x: hidden;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
+  transition: background-color 0.3s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dark body {
+  background-color: #11110F;
+  color: #F5F1E8;
 }
 
 .font-brand {
@@ -40,7 +65,7 @@ body {
 }
 
 /* ==============================================================================
-   PREMIUM GLASSMORPHISM DESIGN SYSTEM
+   PREMIUM GLASSMORPHISM DESIGN SYSTEM (Light + Dark Modes)
    ============================================================================== */
 
 /* Master Glass Panel (for larger containers, sections, dialogs) */
@@ -54,6 +79,17 @@ body {
     0 4px 16px -2px rgba(184, 149, 80, 0.06),
     inset 0 1px 1px 0 rgba(255, 255, 255, 1);
   position: relative;
+}
+
+.dark .glass-panel {
+  background: rgba(25, 24, 20, 0.72);
+  backdrop-filter: blur(20px) saturate(170%);
+  -webkit-backdrop-filter: blur(20px) saturate(170%);
+  border: 1px solid rgba(214, 182, 109, 0.22);
+  box-shadow:
+    0 18px 45px -8px rgba(0, 0, 0, 0.65),
+    0 4px 16px -2px rgba(214, 182, 109, 0.08),
+    inset 0 1px 1px 0 rgba(214, 182, 109, 0.15);
 }
 
 /* Master Glass Card (Interactive with smooth hover lift and gold highlight) */
@@ -70,6 +106,17 @@ body {
   position: relative;
 }
 
+.dark .glass-card {
+  background: rgba(25, 24, 20, 0.65);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  border: 1px solid rgba(214, 182, 109, 0.22);
+  box-shadow:
+    0 12px 32px -6px rgba(0, 0, 0, 0.55),
+    0 2px 8px -1px rgba(214, 182, 109, 0.08),
+    inset 0 1px 1px 0 rgba(214, 182, 109, 0.12);
+}
+
 .glass-card:hover {
   background: rgba(255, 255, 255, 0.94);
   border-color: rgba(184, 149, 80, 0.45);
@@ -77,6 +124,16 @@ body {
     0 20px 42px -10px rgba(184, 149, 80, 0.16),
     0 6px 16px -2px rgba(0, 0, 0, 0.06),
     inset 0 1px 2px 0 rgba(255, 255, 255, 1);
+  transform: translateY(-3px);
+}
+
+.dark .glass-card:hover {
+  background: rgba(32, 30, 25, 0.82);
+  border-color: rgba(214, 182, 109, 0.5);
+  box-shadow:
+    0 20px 48px -10px rgba(0, 0, 0, 0.75),
+    0 6px 20px -2px rgba(214, 182, 109, 0.22),
+    inset 0 1px 2px 0 rgba(214, 182, 109, 0.25);
   transform: translateY(-3px);
 }
 
@@ -92,6 +149,16 @@ body {
   position: relative;
 }
 
+.dark .glass-card-static {
+  background: rgba(25, 24, 20, 0.72);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  border: 1px solid rgba(214, 182, 109, 0.22);
+  box-shadow:
+    0 12px 32px -6px rgba(0, 0, 0, 0.55),
+    inset 0 1px 1px 0 rgba(214, 182, 109, 0.12);
+}
+
 /* Dark Obsidian Glass (Used in Navbar, Footer, and Premium Callout Cards) */
 .glass-obsidian {
   background: rgba(22, 21, 19, 0.85);
@@ -102,6 +169,14 @@ body {
     0 18px 48px -10px rgba(0, 0, 0, 0.45),
     inset 0 1px 1px 0 rgba(255, 255, 255, 0.15);
   position: relative;
+}
+
+.dark .glass-obsidian {
+  background: rgba(17, 16, 14, 0.85);
+  border: 1px solid rgba(214, 182, 109, 0.25);
+  box-shadow:
+    0 18px 48px -10px rgba(0, 0, 0, 0.75),
+    inset 0 1px 1px 0 rgba(214, 182, 109, 0.15);
 }
 
 /* Translucent Frosted Glass Navbar with Enhanced Glass Blur and Specular Rim */
@@ -117,6 +192,17 @@ body {
   position: relative;
 }
 
+.dark .glass-navbar {
+  background: rgba(17, 16, 14, 0.78);
+  backdrop-filter: blur(24px) saturate(190%);
+  -webkit-backdrop-filter: blur(24px) saturate(190%);
+  border: 1px solid rgba(214, 182, 109, 0.3);
+  box-shadow:
+    0 16px 44px -8px rgba(0, 0, 0, 0.75),
+    inset 0 1px 0 0 rgba(214, 182, 109, 0.35),
+    inset 0 -1px 0 0 rgba(0, 0, 0, 0.5);
+}
+
 /* Glass Pill Badge */
 .glass-pill {
   background: rgba(255, 255, 255, 0.82);
@@ -127,6 +213,16 @@ body {
     0 2px 10px -2px rgba(184, 149, 80, 0.08),
     inset 0 1px 1px 0 rgba(255, 255, 255, 0.95);
   position: relative;
+}
+
+.dark .glass-pill {
+  background: rgba(25, 24, 20, 0.75);
+  backdrop-filter: blur(12px) saturate(150%);
+  -webkit-backdrop-filter: blur(12px) saturate(150%);
+  border: 1px solid rgba(214, 182, 109, 0.35);
+  box-shadow:
+    0 2px 10px -2px rgba(0, 0, 0, 0.4),
+    inset 0 1px 1px 0 rgba(214, 182, 109, 0.15);
 }
 
 /* Specular Light Reflection at Top Edge */
@@ -146,6 +242,17 @@ body {
   pointer-events: none;
 }
 
+.dark .glass-specular-top {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(214, 182, 109, 0.7) 25%,
+    rgba(229, 202, 143, 0.85) 50%,
+    rgba(214, 182, 109, 0.7) 75%,
+    transparent 100%
+  );
+}
+
 .glass-specular-gold {
   position: absolute;
   top: 0;
@@ -161,6 +268,17 @@ body {
     transparent 100%
   );
   pointer-events: none;
+}
+
+.dark .glass-specular-gold {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(214, 182, 109, 0.7) 30%,
+    rgba(229, 202, 143, 0.95) 50%,
+    rgba(214, 182, 109, 0.7) 70%,
+    transparent 100%
+  );
 }
 
 /* ==============================================================================
@@ -194,6 +312,21 @@ body {
     0 8px 24px -2px rgba(184, 149, 80, 0.45),
     inset 0 1px 1px 0 rgba(255, 255, 255, 0.6);
   transform: translateY(-1.5px);
+}
+
+.dark .btn-gold {
+  color: #11110F;
+  background: linear-gradient(135deg, #D6B66D 0%, #E5CA8F 50%, #BFA055 100%);
+  box-shadow:
+    0 4px 18px -2px rgba(214, 182, 109, 0.4),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.dark .btn-gold:hover {
+  background: linear-gradient(135deg, #E0C27E 0%, #EED79F 50%, #C9AC63 100%);
+  box-shadow:
+    0 8px 26px -2px rgba(214, 182, 109, 0.55),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.7);
 }
 
 .btn-gold:active {
@@ -244,6 +377,24 @@ body {
   transform: translateY(-1.5px);
 }
 
+.dark .btn-glass {
+  color: #F5F1E8;
+  background: rgba(25, 24, 20, 0.75);
+  border: 1px solid rgba(214, 182, 109, 0.3);
+  box-shadow:
+    0 4px 14px -3px rgba(0, 0, 0, 0.5),
+    inset 0 1px 1px 0 rgba(214, 182, 109, 0.15);
+}
+
+.dark .btn-glass:hover {
+  background: rgba(35, 33, 27, 0.9);
+  border-color: rgba(214, 182, 109, 0.6);
+  color: #D6B66D;
+  box-shadow:
+    0 8px 22px -3px rgba(214, 182, 109, 0.25),
+    inset 0 1px 2px 0 rgba(214, 182, 109, 0.2);
+}
+
 .btn-glass:active {
   transform: scale(0.98) translateY(0);
 }
@@ -253,6 +404,117 @@ body {
   ring: 2px;
   ring-color: #B89550;
   ring-offset: 2px;
+}
+
+/* ==============================================================================
+   DARK MODE COMPONENT AND UTILITY OVERRIDES
+   ============================================================================== */
+
+/* Background surfaces in dark mode become translucent dark warm charcoal so fixed background subtly shows */
+.dark .bg-\[\#FAF8F2\],
+.dark .bg-\[\#F1EDE3\],
+.dark .bg-stone-50,
+.dark .bg-stone-100 {
+  background-color: rgba(25, 24, 20, 0.62) !important;
+}
+
+.dark .bg-white {
+  background-color: rgba(25, 24, 20, 0.78) !important;
+}
+
+.dark .bg-white\/50,
+.dark .bg-white\/55,
+.dark .bg-white\/60,
+.dark .bg-white\/70,
+.dark .bg-white\/75,
+.dark .bg-white\/80,
+.dark .bg-white\/85,
+.dark .bg-white\/90,
+.dark .bg-white\/95 {
+  background-color: rgba(25, 24, 20, 0.68) !important;
+}
+
+.dark .hover\:bg-white:hover,
+.dark .hover\:bg-white\/90:hover,
+.dark .hover\:bg-white\/95:hover {
+  background-color: rgba(35, 33, 27, 0.85) !important;
+}
+
+/* Text colors in dark mode */
+.dark .text-\[\#252525\],
+.dark .text-stone-900,
+.dark .text-stone-800,
+.dark .text-zinc-900 {
+  color: #F5F1E8 !important;
+}
+
+.dark .text-\[\#595959\],
+.dark .text-stone-600,
+.dark .text-stone-500,
+.dark .text-zinc-600 {
+  color: #C2BBAE !important;
+}
+
+.dark .text-\[\#8C827A\],
+.dark .text-stone-400 {
+  color: #A39B8E !important;
+}
+
+.dark .text-\[\#B89550\] {
+  color: #D6B66D !important;
+}
+
+/* Borders in dark mode */
+.dark .border-\[\#E5DFD3\],
+.dark .border-stone-200,
+.dark .border-stone-300 {
+  border-color: rgba(214, 182, 109, 0.22) !important;
+}
+
+.dark .border-white,
+.dark .border-white\/80,
+.dark .border-white\/90 {
+  border-color: rgba(214, 182, 109, 0.25) !important;
+}
+
+/* Forms, Inputs, Textareas, Selects in dark mode */
+.dark input:not([type="checkbox"]):not([type="radio"]),
+.dark textarea,
+.dark select {
+  background-color: rgba(20, 19, 16, 0.85) !important;
+  color: #F5F1E8 !important;
+  border-color: rgba(214, 182, 109, 0.3) !important;
+}
+
+.dark input:focus,
+.dark textarea:focus,
+.dark select:focus {
+  border-color: rgba(214, 182, 109, 0.7) !important;
+  box-shadow: 0 0 0 2px rgba(214, 182, 109, 0.25) !important;
+}
+
+.dark input::placeholder,
+.dark textarea::placeholder {
+  color: #8C827A !important;
+}
+
+/* Table styles in dark mode */
+.dark table {
+  color: #F5F1E8 !important;
+}
+
+.dark table thead th {
+  background-color: rgba(20, 19, 16, 0.9) !important;
+  color: #D6B66D !important;
+  border-color: rgba(214, 182, 109, 0.25) !important;
+}
+
+.dark table tbody tr {
+  border-color: rgba(214, 182, 109, 0.15) !important;
+}
+
+.dark table tbody tr:hover {
+  background-color: rgba(35, 33, 27, 0.6) !important;
 }
 
 /* ==============================================================================
@@ -369,12 +631,21 @@ body {
   background: linear-gradient(90deg, transparent, rgba(184, 149, 80, 0.65), transparent);
 }
 
+.dark .ornament-line {
+  background: linear-gradient(90deg, transparent, rgba(214, 182, 109, 0.7), transparent);
+}
+
 .ornament-diamond {
   width: 0.5rem;
   height: 0.5rem;
   background: #B89550;
   transform: rotate(45deg);
   box-shadow: 0 0 8px rgba(184, 149, 80, 0.5);
+}
+
+.dark .ornament-diamond {
+  background: #D6B66D;
+  box-shadow: 0 0 10px rgba(214, 182, 109, 0.7);
 }
 
 /* Bismillah Calligraphy Header */
@@ -385,6 +656,11 @@ body {
   letter-spacing: 0.05em;
   opacity: 0.95;
   user-select: none;
+}
+
+.dark .bismillah-text {
+  color: #D6B66D;
+  text-shadow: 0 0 12px rgba(214, 182, 109, 0.35);
 }
 
 /* Accessibility: Respect Reduced Motion */
