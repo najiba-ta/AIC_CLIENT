@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { verifyAdminSession } from "@/lib/auth";
+import { put } from "@vercel/blob";
 import fs from "fs";
 import path from "path";
 
@@ -42,70 +43,72 @@ export async function POST(request) {
       );
     }
 
-    const bytes = await file.arrayBuffer();
-    const buffer = Buffer.from(bytes);
+    const ext = file.name ? path.extname(file.name).toLowerCase() || ".jpg" : ".jpg";
+    const baseName = path.basename(file.name || "profile", ext)
+      .toLowerCase()
+      .replace(/[^a-z0-9_-]/g, "_")
+      .slice(0, 30);
+    const fileName = `team/${Date.now()}-${baseName}${ext}`;
 
-    // Option 1: If IMGBB_API_KEY is configured, upload directly to cloud (free permanent hosting)
-    const imgbbKey = (process.env.IMGBB_API_KEY || "4ce47775128d5818e2f8c3750f3e68e7").trim();
-    if (imgbbKey) {
+    // Priority 1: Vercel Blob Storage (Built-in, permanent, fast global CDN)
+    if (process.env.BLOB_READ_WRITE_TOKEN) {
       try {
-        const imgbbFormData = new FormData();
-        imgbbFormData.append("image", buffer.toString("base64"));
-        const imgbbRes = await fetch(`https://api.imgbb.com/1/upload?key=${imgbbKey}`, {
-          method: "POST",
-          body: imgbbFormData,
+        const blob = await put(fileName, file, {
+          access: "public",
+          addRandomSuffix: true,
         });
-        const imgbbData = await imgbbRes.json();
-        if (imgbbData?.success && imgbbData?.data?.url) {
+
+        if (blob?.url) {
           return NextResponse.json({
             success: true,
-            message: "Profile image uploaded to cloud successfully.",
-            url: imgbbData.data.url,
+            message: "Profile image uploaded to Vercel Blob successfully.",
+            url: blob.url,
           });
         }
-      } catch (cloudErr) {
-        console.error("[ImgBB Upload Exception]:", cloudErr);
-      }
-    }
-
-    // Option 2: Local storage (works in local development)
-    try {
-      const uploadDir = path.join(process.cwd(), "public", "images", "team");
-      if (!fs.existsSync(uploadDir)) {
-        fs.mkdirSync(uploadDir, { recursive: true });
-      }
-
-      const ext = file.name ? path.extname(file.name).toLowerCase() || ".jpg" : ".jpg";
-      const baseName = path.basename(file.name || "profile", ext)
-        .toLowerCase()
-        .replace(/[^a-z0-9_-]/g, "_")
-        .slice(0, 30);
-      const fileName = `${Date.now()}-${baseName}${ext}`;
-      const filePath = path.join(uploadDir, fileName);
-
-      fs.writeFileSync(filePath, buffer);
-
-      const publicUrl = `/images/team/${fileName}`;
-
-      return NextResponse.json({
-        success: true,
-        message: "Profile image uploaded successfully.",
-        url: publicUrl,
-      });
-    } catch (fsErr) {
-      console.warn("[Local File System Write Failed]:", fsErr?.message);
-      if (fsErr?.code === "EROFS" || fsErr?.message?.includes("read-only")) {
+      } catch (blobErr) {
+        console.error("[Vercel Blob Upload Error]:", blobErr);
         return NextResponse.json(
           {
             success: false,
-            error:
-              "Vercel ক্লাউড হোস্টিংয়ে লোকাল ডিস্কে ফাইল সেভ করা যায় না (Read-only filesystem)। অনুগ্রহ করে ছবির সরাসরি লিংক (Direct Image URL যেমন ImgBB / PostImages লিংক) পেস্ট করুন অথবা .env-এ IMGBB_API_KEY যুক্ত করুন।",
+            error: `Vercel Blob upload failed: ${blobErr?.message || "Storage error"}`,
           },
-          { status: 400 }
+          { status: 500 }
         );
       }
-      throw fsErr;
     }
+
+    // Priority 2: Local storage (for local dev when running on localhost)
+    if (!process.env.VERCEL) {
+      try {
+        const bytes = await file.arrayBuffer();
+        const buffer = Buffer.from(bytes);
+        const uploadDir = path.join(process.cwd(), "public", "images", "team");
+        if (!fs.existsSync(uploadDir)) {
+          fs.mkdirSync(uploadDir, { recursive: true });
+        }
+
+        const localFileName = `${Date.now()}-${baseName}${ext}`;
+        const filePath = path.join(uploadDir, localFileName);
+        fs.writeFileSync(filePath, buffer);
+
+        return NextResponse.json({
+          success: true,
+          message: "Profile image uploaded locally.",
+          url: `/images/team/${localFileName}`,
+        });
+      } catch (localErr) {
+        console.warn("[Local File Write Error]:", localErr);
+      }
+    }
+
+    return NextResponse.json(
+      {
+        success: false,
+        error:
+          "Vercel Blob স্টোরেজ পাওয়া যায়নি। অনুগ্রহ করে প্রজেক্টটি রি-ডেপ্লয় করুন অথবা ছবির সরাসরি URL পেস্ট করুন।",
+      },
+      { status: 400 }
+    );
   } catch (error) {
     console.error("[Upload Image Error]:", error);
     return NextResponse.json(
