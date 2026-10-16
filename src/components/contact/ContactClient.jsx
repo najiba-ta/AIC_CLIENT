@@ -47,10 +47,10 @@ export default function ContactClient() {
       ];
 
   return (
-    <main className="flex-1 w-full bg-[#FAF8F2] text-[#252525]">
+    <main className="flex-1 w-full bg-[#FAF8F2] dark:bg-transparent text-[#252525] dark:text-[#F5F1E8]">
       {/* Header Section */}
-      <section className="relative w-full bg-[#FAF8F2] py-16 sm:py-24 px-3.5 sm:px-6 lg:px-8 border-b border-[#E5DFD3] overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
+      <section className="relative w-full bg-[#FAF8F2] dark:bg-transparent py-16 sm:py-24 px-3.5 sm:px-6 lg:px-8 border-b border-[#E5DFD3] dark:border-[#D6B66D]/20 overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none overflow-hidden dark:hidden" aria-hidden="true">
           <div
             className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] sm:w-[900px] h-[350px] sm:h-[450px] rounded-full opacity-40 blur-3xl"
             style={{
@@ -62,7 +62,7 @@ export default function ContactClient() {
         </div>
 
         <div className="relative z-10 max-w-5xl mx-auto text-center min-w-0">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-[#B89550]/40 text-xs sm:text-sm font-semibold text-[#B89550] shadow-2xs mb-4">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white dark:bg-[#191814]/80 border border-[#B89550]/40 text-xs sm:text-sm font-semibold text-[#B89550] dark:text-[#D6B66D] shadow-2xs mb-4">
             <MessageSquare className="w-4 h-4 text-[#B89550]" />
             <span>{isBn ? "যোগাযোগ ও তথ্য অনুসন্ধান" : "Connect & Inquire"}</span>
           </div>
@@ -92,7 +92,7 @@ export default function ContactClient() {
       <OfficialContactSection />
 
       {/* Main Content: Form & Center Info */}
-      <section className="relative w-full py-16 sm:py-20 px-3.5 sm:px-6 lg:px-8 border-b border-[#E5DFD3] bg-white">
+      <section className="relative w-full py-16 sm:py-20 px-3.5 sm:px-6 lg:px-8 border-b border-[#E5DFD3] dark:border-[#D6B66D]/20 bg-white dark:bg-transparent">
         <div className="max-w-7xl mx-auto">
           <ContactForm />
         </div>

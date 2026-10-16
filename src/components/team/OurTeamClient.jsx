@@ -156,11 +156,11 @@ export default function OurTeamClient() {
   };
 
   return (
-    <main className="flex-1 w-full bg-[#FAF8F2] text-[#252525] min-h-screen">
+    <main className="flex-1 w-full bg-[#FAF8F2] dark:bg-transparent text-[#252525] dark:text-[#F5F1E8] min-h-screen">
       {/* Hero Header Section */}
-      <section className="relative w-full bg-[#FAF8F2] py-16 sm:py-20 lg:py-24 px-3.5 sm:px-6 lg:px-8 border-b border-[#E5DFD3] overflow-hidden">
-        {/* Subtle Ambient Glow */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
+      <section className="relative w-full bg-[#FAF8F2] dark:bg-transparent py-16 sm:py-20 lg:py-24 px-3.5 sm:px-6 lg:px-8 border-b border-[#E5DFD3] dark:border-[#D6B66D]/20 overflow-hidden">
+        {/* Subtle Ambient Glow (Light mode only) */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden dark:hidden" aria-hidden="true">
           <div
             className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] sm:w-[900px] h-[320px] sm:h-[420px] rounded-full opacity-40 blur-3xl"
             style={{
@@ -172,7 +172,7 @@ export default function OurTeamClient() {
         </div>
 
         <div className="relative z-10 max-w-5xl mx-auto text-center min-w-0">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-[#B89550]/40 text-xs sm:text-sm font-semibold text-[#B89550] shadow-2xs mb-4">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white dark:bg-[#191814]/80 border border-[#B89550]/40 text-xs sm:text-sm font-semibold text-[#B89550] dark:text-[#D6B66D] shadow-2xs mb-4">
             <Sparkles className="w-3.5 h-3.5" />
             <span>{isBn ? "আল হিদায়াহ ইসলামিক সেন্টার" : "Al Hidayah Islamic Center"}</span>
           </div>
@@ -201,7 +201,7 @@ export default function OurTeamClient() {
       {/* Main Content Area */}
       <section className="relative w-full py-10 sm:py-14 px-3.5 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-10">
         {/* Controls Bar: Category Tabs & Search */}
-        <div className="bg-white p-4 sm:p-5 rounded-2xl border border-[#E5DFD3] shadow-xs flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="bg-white dark:bg-[#191814]/85 p-4 sm:p-5 rounded-2xl border border-[#E5DFD3] dark:border-[#D6B66D]/20 shadow-xs flex flex-col md:flex-row items-center justify-between gap-4">
           {/* Category Tabs */}
           <div className="flex flex-wrap items-center gap-2 w-full md:w-auto">
             {categories.map((cat) => {

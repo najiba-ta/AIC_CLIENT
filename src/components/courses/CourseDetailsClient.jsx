@@ -399,11 +399,11 @@ export default function CourseDetailsClient() {
       ];
 
   return (
-    <main className="flex-1 w-full bg-[#FAF8F2] text-[#252525]">
+    <main className="flex-1 w-full bg-[#FAF8F2] dark:bg-transparent text-[#252525] dark:text-[#F5F1E8]">
       {/* Hero Header Section */}
-      <section className="relative w-full bg-[#FAF8F2] py-16 sm:py-24 px-4 sm:px-6 lg:px-8 border-b border-[#E5DFD3] overflow-hidden">
-        {/* Ambient Madrasah Background Texture */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden select-none" aria-hidden="true">
+      <section className="relative w-full bg-[#FAF8F2] dark:bg-transparent py-16 sm:py-24 px-4 sm:px-6 lg:px-8 border-b border-[#E5DFD3] dark:border-[#D6B66D]/20 overflow-hidden">
+        {/* Ambient Madrasah Background Texture (Light mode only) */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden select-none dark:hidden" aria-hidden="true">
           <div className="absolute inset-0 opacity-45 filter blur-[1px] scale-[1.01]">
             <Image
               src="/images/quran-madrasah-bg.jpg"
@@ -419,7 +419,7 @@ export default function CourseDetailsClient() {
         </div>
 
         <div className="relative z-10 max-w-5xl mx-auto text-center min-w-0">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/85 backdrop-blur-md border border-white/90 text-xs sm:text-sm font-semibold text-[#B89550] shadow-2xs mb-4">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/85 dark:bg-[#191814]/80 backdrop-blur-md border border-white/90 dark:border-[#D6B66D]/30 text-xs sm:text-sm font-semibold text-[#B89550] dark:text-[#D6B66D] shadow-2xs mb-4">
             <Sparkles className="w-4 h-4 text-[#B89550]" />
             <span>{isBn ? "ইসলামী শিক্ষা পাঠ্যক্রম" : "Islamic Education Curriculum"}</span>
           </div>
@@ -460,13 +460,13 @@ export default function CourseDetailsClient() {
       </section>
 
       {/* Program Overview Banner */}
-      <section className="relative w-full py-10 px-4 sm:px-6 lg:px-8 bg-white border-b border-[#E5DFD3]">
+      <section className="relative w-full py-10 px-4 sm:px-6 lg:px-8 bg-white dark:bg-[#191814]/80 border-b border-[#E5DFD3] dark:border-[#D6B66D]/20">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="space-y-1 text-center md:text-left">
-            <h2 className="text-xl sm:text-2xl font-bold text-[#252525]">
+            <h2 className="text-xl sm:text-2xl font-bold text-[#252525] dark:text-[#F5F1E8]">
               {isBn ? "মজবুত ইসলামী বুনিয়াদের জন্য যা কিছু প্রয়োজন" : "Everything you need for a firm Islamic foundation"}
             </h2>
-            <p className="text-xs sm:text-sm text-[#595959]">
+            <p className="text-xs sm:text-sm text-[#595959] dark:text-[#C2BBAE]">
               {isBn
                 ? "প্রতিটি বিষয়ের বিস্তারিত রূপরেখা, আলোচ্য বিষয় এবং ব্যবহারিক ফলাফল নিচে দেখুন।"
                 : "Review the detailed breakdown of each subject below, including what students learn, key topics, and practical outcomes."}
@@ -486,7 +486,7 @@ export default function CourseDetailsClient() {
       </section>
 
       {/* Core Subjects Detailed Breakdown */}
-      <section className="relative w-full py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 bg-[#FAF8F2]">
+      <section className="relative w-full py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 bg-[#FAF8F2] dark:bg-transparent">
         <div className="max-w-7xl mx-auto space-y-12">
           {/* Section Header */}
           <div className="text-center max-w-3xl mx-auto">
@@ -608,18 +608,18 @@ export default function CourseDetailsClient() {
       </section>
 
       {/* FREE WITH ENROLLMENT Section */}
-      <section className="relative w-full py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 bg-white border-y border-[#E5DFD3]">
+      <section className="relative w-full py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 bg-white dark:bg-[#191814]/80 border-y border-[#E5DFD3] dark:border-[#D6B66D]/20">
         <div className="max-w-7xl mx-auto space-y-12">
           {/* Section Header */}
           <div className="text-center max-w-3xl mx-auto">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FAF8F2] border border-[#B89550]/40 text-xs sm:text-sm font-bold text-[#B89550] shadow-2xs mb-3">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FAF8F2] dark:bg-[#191814] border border-[#B89550]/40 text-xs sm:text-sm font-bold text-[#B89550] dark:text-[#D6B66D] shadow-2xs mb-3">
               <Gift className="w-4 h-4" />
               <span>{isBn ? "ভর্তির সাথে বিশেষ সুবিধা" : "Complimentary Enrollment Benefits"}</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#252525]">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#252525] dark:text-[#F5F1E8]">
               {isBn ? "ভর্তির সাথে সম্পূর্ণ ফ্রি অন্তর্ভুক্ত" : "Included FREE with Enrollment"}
             </h2>
-            <p className="mt-2 text-xs sm:text-sm md:text-base text-[#595959]">
+            <p className="mt-2 text-xs sm:text-sm md:text-base text-[#595959] dark:text-[#C2BBAE]">
               {isBn
                 ? "পূর্ণাঙ্গ ইসলামী শিক্ষা প্রোগ্রামে ভর্তি হলে তাফসীর এবং ইসলামের ইতিহাস উভয়েই কোনো অতিরিক্ত খরচ ছাড়াই পাবেন।"
                 : "When you enroll in the Comprehensive Islamic Education Program, both Tafsir and Islamic History are included at zero extra cost."}
@@ -634,7 +634,7 @@ export default function CourseDetailsClient() {
                 <div
                   key={subject.id}
                   id={subject.id}
-                  className="rounded-3xl bg-gradient-to-br from-[#FAF8F2]/90 via-white to-white border-2 border-[#B89550]/60 shadow-xl p-6 sm:p-8 lg:p-9 relative overflow-hidden flex flex-col justify-between"
+                  className="rounded-3xl bg-gradient-to-br from-[#FAF8F2]/90 via-white to-white dark:from-[#1E1C17] dark:via-[#191814] dark:to-[#191814] border-2 border-[#B89550]/60 dark:border-[#D6B66D]/40 shadow-xl p-6 sm:p-8 lg:p-9 relative overflow-hidden flex flex-col justify-between"
                 >
                   <div className="glass-specular-top" />
 
@@ -733,17 +733,17 @@ export default function CourseDetailsClient() {
       </section>
 
       {/* Program Benefits Section */}
-      <section className="relative w-full py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 bg-[#FAF8F2] border-b border-[#E5DFD3]">
+      <section className="relative w-full py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 bg-[#FAF8F2] dark:bg-transparent border-b border-[#E5DFD3] dark:border-[#D6B66D]/20">
         <div className="max-w-7xl mx-auto space-y-12">
           <div className="text-center max-w-3xl mx-auto">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/80 backdrop-blur-md border border-[#B89550]/40 text-xs sm:text-sm font-semibold text-[#B89550] shadow-2xs mb-3">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/80 dark:bg-[#191814]/80 backdrop-blur-md border border-[#B89550]/40 text-xs sm:text-sm font-semibold text-[#B89550] dark:text-[#D6B66D] shadow-2xs mb-3">
               <Award className="w-4 h-4" />
               <span>{isBn ? "মূল সুবিধাসমূহ" : "Key Advantages"}</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#252525]">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#252525] dark:text-[#F5F1E8]">
               {isBn ? "প্রোগ্রামের বিশেষ সুবিধাসমূহ" : "Program Benefits & Features"}
             </h2>
-            <p className="mt-2 text-xs sm:text-sm md:text-base text-[#595959]">
+            <p className="mt-2 text-xs sm:text-sm md:text-base text-[#595959] dark:text-[#C2BBAE]">
               {isBn
                 ? "যোগ্য শিক্ষকদের নির্দেশনায় আত্মিক বিকাশ, সঠিক আমল এবং কুরআনের সাথে গভীর বন্ধন গড়ে তোলার লক্ষ্য নিয়ে তৈরি।"
                 : "Designed to foster spiritual growth, correct practice, and deep Qur'anic attachment under qualified supervision."}
@@ -761,10 +761,10 @@ export default function CourseDetailsClient() {
                   <div className="w-8 h-8 rounded-xl bg-white/90 backdrop-blur-xs text-[#B89550] border border-[#B89550]/30 flex items-center justify-center shadow-2xs mb-3">
                     <CheckCircle2 className="w-4 h-4" />
                   </div>
-                  <h3 className="text-sm font-bold text-[#252525] mb-1.5">
+                  <h3 className="text-sm font-bold text-[#252525] dark:text-[#F5F1E8] mb-1.5">
                     {benefit.title}
                   </h3>
-                  <p className="text-xs text-[#595959] leading-relaxed">
+                  <p className="text-xs text-[#595959] dark:text-[#C2BBAE] leading-relaxed">
                     {benefit.desc}
                   </p>
                 </div>
@@ -775,7 +775,7 @@ export default function CourseDetailsClient() {
       </section>
 
       {/* ONE PROMINENT ENROLL NOW BANNER AT BOTTOM */}
-      <section className="relative w-full py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 bg-white overflow-hidden">
+      <section className="relative w-full py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 bg-white dark:bg-transparent overflow-hidden">
         <div className="max-w-4xl mx-auto text-center">
           <div className="p-8 sm:p-12 rounded-3xl sm:rounded-4xl glass-panel shadow-2xl relative overflow-hidden">
             <div className="glass-specular-top" />

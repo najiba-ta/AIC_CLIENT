@@ -169,6 +169,7 @@ export default function Navbar() {
             {/* THEME TOGGLE: Light (Sun) / Dark (Moon) */}
             <button
               type="button"
+              id="desktop-theme-toggle"
               onClick={toggleTheme}
               className="inline-flex items-center justify-center w-8 h-8 xl:w-8.5 xl:h-8.5 rounded-full bg-stone-900/80 hover:bg-stone-800 backdrop-blur-md border border-white/15 hover:border-[#D6B66D]/50 text-stone-300 hover:text-[#D6B66D] shadow-inner transition-all duration-200 cursor-pointer shrink-0 active:scale-95"
               title={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}

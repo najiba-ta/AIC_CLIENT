@@ -153,11 +153,11 @@ export default function AboutClient() {
       ];
 
   return (
-    <main className="flex-1 w-full bg-[#FAF8F2] text-[#252525]">
+    <main className="flex-1 w-full bg-[#FAF8F2] dark:bg-transparent text-[#252525] dark:text-[#F5F1E8]">
       {/* Hero Header Section */}
-      <section className="relative w-full bg-[#FAF8F2] py-16 sm:py-24 px-3.5 sm:px-6 lg:px-8 border-b border-[#E5DFD3] overflow-hidden">
-        {/* Ambient Glow Overlays */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
+      <section className="relative w-full bg-[#FAF8F2] dark:bg-transparent py-16 sm:py-24 px-3.5 sm:px-6 lg:px-8 border-b border-[#E5DFD3] dark:border-[#D6B66D]/20 overflow-hidden">
+        {/* Ambient Glow Overlays (Light mode only) */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden dark:hidden" aria-hidden="true">
           <div
             className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] sm:w-[900px] h-[350px] sm:h-[450px] rounded-full opacity-40 blur-3xl"
             style={{
@@ -169,7 +169,7 @@ export default function AboutClient() {
         </div>
 
         <div className="relative z-10 max-w-5xl mx-auto text-center min-w-0">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-[#B89550]/40 text-xs sm:text-sm font-semibold text-[#B89550] shadow-2xs mb-4">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white dark:bg-[#191814]/80 border border-[#B89550]/40 text-xs sm:text-sm font-semibold text-[#B89550] dark:text-[#D6B66D] shadow-2xs mb-4">
             <span className="w-1.5 h-1.5 rounded-full bg-[#B89550]" />
             <span>{isBn ? "আমাদের ঐতিহ্য ও লক্ষ্য" : "Our Heritage & Purpose"}</span>
           </div>
@@ -312,17 +312,17 @@ export default function AboutClient() {
       </section>
 
       {/* Core Values Section */}
-      <section className="relative w-full py-16 sm:py-20 lg:py-24 px-3.5 sm:px-6 lg:px-8 border-b border-[#E5DFD3] bg-[#F1EDE3]">
+      <section className="relative w-full py-16 sm:py-20 lg:py-24 px-3.5 sm:px-6 lg:px-8 border-b border-[#E5DFD3] dark:border-[#D6B66D]/20 bg-[#F1EDE3] dark:bg-transparent">
         <div className="max-w-7xl mx-auto">
           <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-[#B89550]/40 text-xs sm:text-sm font-semibold text-[#B89550] shadow-2xs mb-3">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white dark:bg-[#191814]/80 border border-[#B89550]/40 text-xs sm:text-sm font-semibold text-[#B89550] dark:text-[#D6B66D] shadow-2xs mb-3">
               <span className="w-1.5 h-1.5 rounded-full bg-[#B89550]" />
               <span>{isBn ? "মূল চালিকাশক্তি" : "Guiding Principles"}</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#252525]">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#252525] dark:text-[#F5F1E8]">
               {isBn ? "আমাদের মৌলিক মূল্যবোধ" : "Our Core Values"}
             </h2>
-            <p className="mt-3 text-sm sm:text-base text-[#595959]">
+            <p className="mt-3 text-sm sm:text-base text-[#595959] dark:text-[#C2BBAE]">
               {isBn
                 ? "যেসব সুমহান চারিত্রিক ও আদর্শিক মূল্যবোধের ওপর ভিত্তি করে আল হিদায়াহর প্রতিটি কার্যক্রম পরিচালিত হয়।"
                 : "The foundational ethical principles that guide all programs, services, and interactions at Al Hidayah."}
@@ -357,7 +357,7 @@ export default function AboutClient() {
       </section>
 
       {/* Community Services Overview */}
-      <section className="relative w-full py-16 sm:py-20 lg:py-24 px-3.5 sm:px-6 lg:px-8 bg-[#FAF8F2]">
+      <section className="relative w-full py-16 sm:py-20 lg:py-24 px-3.5 sm:px-6 lg:px-8 bg-[#FAF8F2] dark:bg-transparent">
         <div className="max-w-7xl mx-auto">
           <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-[#B89550]/40 text-xs sm:text-sm font-semibold text-[#B89550] shadow-2xs mb-3">

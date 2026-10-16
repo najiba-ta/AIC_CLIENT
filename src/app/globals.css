@@ -418,6 +418,10 @@ body {
   background-color: rgba(25, 24, 20, 0.62) !important;
 }
 
+.dark .dark\:bg-transparent {
+  background-color: transparent !important;
+}
+
 .dark .bg-white {
   background-color: rgba(25, 24, 20, 0.78) !important;
 }
@@ -438,6 +442,20 @@ body {
 .dark .hover\:bg-white\/90:hover,
 .dark .hover\:bg-white\/95:hover {
   background-color: rgba(35, 33, 27, 0.85) !important;
+}
+
+/* Eliminate pale light ambient blobs and milky gradients in dark mode */
+.dark [style*="radial-gradient(circle, rgba(241, 237, 227"],
+.dark [style*="radial-gradient(circle, rgba(250, 248, 242"],
+.dark [style*="radial-gradient(ellipse at 50% 30%"] {
+  display: none !important;
+}
+
+.dark .via-white,
+.dark .via-white\/70,
+.dark .via-white\/80,
+.dark .via-white\/90 {
+  --tw-gradient-via: transparent !important;
 }
 
 /* Text colors in dark mode */

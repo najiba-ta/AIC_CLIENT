@@ -158,10 +158,10 @@ export default function EventsClient() {
       ];
 
   return (
-    <main className="flex-1 w-full bg-[#FAF8F2] text-[#252525]">
+    <main className="flex-1 w-full bg-[#FAF8F2] dark:bg-transparent text-[#252525] dark:text-[#F5F1E8]">
       {/* Header Section */}
-      <section className="relative w-full bg-[#FAF8F2] py-16 sm:py-24 px-3.5 sm:px-6 lg:px-8 border-b border-[#E5DFD3] overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
+      <section className="relative w-full bg-[#FAF8F2] dark:bg-transparent py-16 sm:py-24 px-3.5 sm:px-6 lg:px-8 border-b border-[#E5DFD3] dark:border-[#D6B66D]/20 overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none overflow-hidden dark:hidden" aria-hidden="true">
           <div
             className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] sm:w-[900px] h-[350px] sm:h-[450px] rounded-full opacity-40 blur-3xl"
             style={{
@@ -173,7 +173,7 @@ export default function EventsClient() {
         </div>
 
         <div className="relative z-10 max-w-5xl mx-auto text-center min-w-0">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-[#B89550]/40 text-xs sm:text-sm font-semibold text-[#B89550] shadow-2xs mb-4">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white dark:bg-[#191814]/80 border border-[#B89550]/40 text-xs sm:text-sm font-semibold text-[#B89550] dark:text-[#D6B66D] shadow-2xs mb-4">
             <Calendar className="w-4 h-4 text-[#B89550]" />
             <span>{isBn ? "কমিউনিটি ইভেন্টস ও সম্মেলন" : "Community Calendar & Gatherings"}</span>
           </div>
@@ -200,7 +200,7 @@ export default function EventsClient() {
       </section>
 
       {/* Events Grid */}
-      <section className="relative w-full py-16 sm:py-20 lg:py-24 px-3.5 sm:px-6 lg:px-8 bg-white border-b border-[#E5DFD3]">
+      <section className="relative w-full py-16 sm:py-20 lg:py-24 px-3.5 sm:px-6 lg:px-8 bg-white dark:bg-transparent border-b border-[#E5DFD3] dark:border-[#D6B66D]/20">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {upcomingEvents.map((evt, idx) => {
@@ -270,7 +270,7 @@ export default function EventsClient() {
       </section>
 
       {/* Suggest Event / Host Banner */}
-      <section className="relative w-full py-16 sm:py-20 px-3.5 sm:px-6 lg:px-8 bg-[#FAF8F2]">
+      <section className="relative w-full py-16 sm:py-20 px-3.5 sm:px-6 lg:px-8 bg-[#FAF8F2] dark:bg-transparent">
         <div className="max-w-4xl mx-auto text-center p-8 sm:p-10 rounded-3xl glass-panel relative overflow-hidden">
           <div className="glass-specular-top" />
           <h2 className="text-2xl sm:text-3xl font-extrabold text-[#252525]">

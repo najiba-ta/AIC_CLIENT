@@ -79,10 +79,10 @@ export default function PrayerTimesClient() {
       ];
 
   return (
-    <main className="flex-1 w-full bg-[#FAF8F2] text-[#252525]">
+    <main className="flex-1 w-full bg-[#FAF8F2] dark:bg-transparent text-[#252525] dark:text-[#F5F1E8]">
       {/* Header Section */}
-      <section className="relative w-full bg-[#FAF8F2] py-16 sm:py-24 px-3.5 sm:px-6 lg:px-8 border-b border-[#E5DFD3] overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
+      <section className="relative w-full bg-[#FAF8F2] dark:bg-transparent py-16 sm:py-24 px-3.5 sm:px-6 lg:px-8 border-b border-[#E5DFD3] dark:border-[#D6B66D]/20 overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none overflow-hidden dark:hidden" aria-hidden="true">
           <div
             className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] sm:w-[900px] h-[350px] sm:h-[450px] rounded-full opacity-40 blur-3xl"
             style={{
@@ -94,7 +94,7 @@ export default function PrayerTimesClient() {
         </div>
 
         <div className="relative z-10 max-w-5xl mx-auto text-center min-w-0">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-[#B89550]/40 text-xs sm:text-sm font-semibold text-[#B89550] shadow-2xs mb-4">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white dark:bg-[#191814]/80 border border-[#B89550]/40 text-xs sm:text-sm font-semibold text-[#B89550] dark:text-[#D6B66D] shadow-2xs mb-4">
             <Clock className="w-4 h-4 text-[#B89550]" />
             <span>{isBn ? "দৈনিক পাঁচ ওয়াক্ত জামাত" : "Daily Congregational Schedule"}</span>
           </div>
@@ -124,13 +124,13 @@ export default function PrayerTimesClient() {
       </section>
 
       {/* Daily Prayers Schedule Cards */}
-      <section className="relative w-full py-14 sm:py-20 px-3.5 sm:px-6 lg:px-8 border-b border-[#E5DFD3] bg-white">
+      <section className="relative w-full py-14 sm:py-20 px-3.5 sm:px-6 lg:px-8 border-b border-[#E5DFD3] dark:border-[#D6B66D]/20 bg-white dark:bg-transparent">
         <div className="max-w-7xl mx-auto">
           <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-12">
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#252525]">
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#252525] dark:text-[#F5F1E8]">
               {isBn ? "দৈনিক পাঁচ ওয়াক্ত নামাজ (সালাত)" : "Five Daily Prayers (Salah)"}
             </h2>
-            <p className="mt-2 text-xs sm:text-sm text-[#595959]">
+            <p className="mt-2 text-xs sm:text-sm text-[#595959] dark:text-[#C2BBAE]">
               {isBn
                 ? "নারী ও পুরুষ উভয়ের জন্য সুসজ্জিত ও পৃথক অজুখানা এবং নামাজ হলের সুব্যবস্থা।"
                 : "Congregational prayers held daily with dedicated facilities for brothers and sisters."}
@@ -158,18 +158,18 @@ export default function PrayerTimesClient() {
                       </span>
                     </div>
 
-                    <h3 className="text-xl font-bold text-[#252525]">{prayer.name}</h3>
-                    <p className="text-[11px] text-[#6B7280] mt-1 min-h-[32px]">
+                    <h3 className="text-xl font-bold text-[#252525] dark:text-[#F5F1E8]">{prayer.name}</h3>
+                    <p className="text-[11px] text-[#6B7280] dark:text-[#C2BBAE] mt-1 min-h-[32px]">
                       {prayer.description}
                     </p>
                   </div>
 
-                  <div className="mt-4 pt-3 border-t border-white/60 space-y-2 text-xs">
-                    <div className="flex items-center justify-between text-[#6B7280]">
+                  <div className="mt-4 pt-3 border-t border-white/60 dark:border-white/10 space-y-2 text-xs">
+                    <div className="flex items-center justify-between text-[#6B7280] dark:text-[#C2BBAE]">
                       <span>{isBn ? "আজান:" : "Adhan:"}</span>
-                      <strong className="text-[#252525] font-mono text-sm">{prayer.adhan}</strong>
+                      <strong className="text-[#252525] dark:text-[#F5F1E8] font-mono text-sm">{prayer.adhan}</strong>
                     </div>
-                    <div className="flex items-center justify-between text-[#B89550] bg-white/90 backdrop-blur-xs px-2.5 py-1.5 rounded-lg border border-[#B89550]/30 shadow-2xs">
+                    <div className="flex items-center justify-between text-[#B89550] bg-white/90 dark:bg-[#191814]/90 backdrop-blur-xs px-2.5 py-1.5 rounded-lg border border-[#B89550]/30 shadow-2xs">
                       <span className="font-semibold text-[11px] uppercase tracking-wider">
                         {isBn ? "ইক্বামাত:" : "Iqamah:"}
                       </span>
@@ -184,7 +184,7 @@ export default function PrayerTimesClient() {
       </section>
 
       {/* Friday Jumu'ah Service Spotlight Banner */}
-      <section className="relative w-full py-14 sm:py-20 px-3.5 sm:px-6 lg:px-8 border-b border-[#E5DFD3] bg-[#F1EDE3]">
+      <section className="relative w-full py-14 sm:py-20 px-3.5 sm:px-6 lg:px-8 border-b border-[#E5DFD3] dark:border-[#D6B66D]/20 bg-[#F1EDE3] dark:bg-transparent">
         <div className="max-w-5xl mx-auto">
           <div className="relative rounded-3xl p-6 sm:p-10 bg-white/85 backdrop-blur-xl border border-white/90 shadow-xl overflow-hidden">
             <div className="glass-specular-top" />
@@ -224,7 +224,7 @@ export default function PrayerTimesClient() {
       </section>
 
       {/* Guidelines & Amenities */}
-      <section className="relative w-full py-16 sm:py-20 px-3.5 sm:px-6 lg:px-8 bg-[#FAF8F2]">
+      <section className="relative w-full py-16 sm:py-20 px-3.5 sm:px-6 lg:px-8 bg-[#FAF8F2] dark:bg-transparent">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
             {/* Mosque Etiquette */}
